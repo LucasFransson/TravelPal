@@ -1,0 +1,146 @@
+﻿<Window x:Class="TravelPal.TravelDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TravelPal"
+        mc:Ignorable="d"
+     Title="TravelDetailsWindow" Height="768" Width="1024">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF272B48" />
+                <GradientStop Color="#FF303452" Offset="0.167" />
+                <GradientStop Color="#FF272B48" Offset="0.987" />
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10" />
+            <RowDefinition Height="1.5*" />
+            <RowDefinition Height="0.5*" />
+            <RowDefinition Height="0.5*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="0.5*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10" />
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="10" />
+        </Grid.ColumnDefinitions>
+
+        <Label x:Name="lblPackingList"
+               Content="Packing List"
+               Grid.Column="4"
+               Grid.Row="3"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               FontSize="16"
+            >
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
+
+        <ListView x:Name="lvTravelSelected"
+                Grid.Column="2"
+                Grid.Row="2" 
+            />
+        <ListView x:Name="lvTravelPackList"
+            Grid.Column="4" 
+            Grid.Row="4" 
+            />
+        <TextBox x:Name="tbxTravelInfo"
+                Grid.Column="2"
+                Grid.Row="4"
+                IsReadOnlyCaretVisible="True"   
+                 />
+        <Button x:Name="btnEditTravel"
+                Content="Edit Travel"
+                Grid.Column="2"
+                Grid.Row="5"
+                Height="35"
+                Click="btnEditTravel_Click">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter
+                    Property="CornerRadius" Value="10" />
+                </Style>
+            </Button.Resources>
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Button.Background>
+
+        </Button>
+        <Button x:Name="btnRemoveTravel"
+                Content="Remove Travel"
+                Grid.Column="2"
+                Grid.Row="3" 
+                Height="30"
+                Foreground="White"
+                Click="btnRemoveTravel_Click">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter
+                    Property="CornerRadius" Value="10" />
+                </Style>
+            </Button.Resources>
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF5C0C1B" Offset="1" />
+                    <GradientStop Color="#FFD54646" />
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        
+        <Button x:Name="btnRemoveItem"
+                Content="Remove"
+                Grid.Row="5"
+                Grid.Column="4"
+                Height="30"
+                Click="btnRemoveItem_Click"
+            >
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter
+                    Property="CornerRadius" Value="10" />
+                </Style>
+            </Button.Resources>
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Button.Background>
+
+        </Button>
+
+        <Button x:Name="btnBack"
+                Content="🔙"
+                Grid.Row="1"
+                Grid.Column="1" 
+                Background="{x:Null}"
+                FontSize="50"
+                Click="btnBack_Click"
+                >
+            <Button.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Button.Foreground>
+        </Button>
+    </Grid>
+</Window>
