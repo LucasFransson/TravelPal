@@ -22,7 +22,7 @@ namespace TravelPal
     /// </summary>
     public partial class AddTravelWindow : Window
     {
-        // private TravelTypes _travelType;  // Use if you want to set a traveltype as either vacation or trip as default
+ 
         private TravelTypes _travelType = TravelTypes.None;
         public AddTravelWindow()
         {
@@ -32,26 +32,24 @@ namespace TravelPal
 
 
 
-            //cboTravelType.ItemsSource = Enum.GetNames(typeof(TravelTypes));   // Sets the combobox itemsource to the TravelTypes Enum
+
             cboDestinationCountry.ItemsSource = Enum.GetNames(typeof(Countries));     // Sets the combobox itemssource to the Countries Enum
             cboTripType.ItemsSource = Enum.GetNames(typeof(TripTypes));    // Sets the combobox itemssource to the TripTypes Enum
             dtpStart.BlackoutDates.AddDatesInPast();    // Blackouts dates that are unavailable 
             dtpEnd.BlackoutDates.AddDatesInPast();
 
-            //CheckMandatoryInputForSaving();
+            TravelManager.CheckMandatoryInputForSaving(_travelType, txtDestination, dtpStart, dtpEnd, cboDestinationCountry, txtTravelerNr, btnSaveTravelInfo, cboTripType);
         }
         
         private void btnSaveTravelInfo_Click(object sender, RoutedEventArgs e)
         {
-            //if (txtDestination.Text=="") { MessageBox.Show("Please enter a destination name for your travel plan."); return; }
 
-            //if (dtpStart.SelectedDate == null && dtpEnd.SelectedDate == null){ MessageBox.Show("You have to select a correct date for your travel plan."); return; }
 
-            bool isNrOk = int.TryParse(txtTravelerNr.Text, out int number);
-            if (!isNrOk )
+            bool isNrOk = int.TryParse(txtTravelerNr.Text, out int number);     // Tries to parse the text from tbxTravelerNr to an integer
+            if (!isNrOk )   // If the parse failed
             {
                 MessageBox.Show("Please only enter numbers into the \"Number of Travellers\" Field.", "Wrong Input");
-                return; // If the textbox is not parsable to an int return to stop the rest of code to execute.
+                return; // If the textbox was not parsable to an int "return" to stop the rest of code to execute.
             } 
 
 
@@ -83,12 +81,12 @@ namespace TravelPal
                 UserManager.SignedInUser.travels.Add(newTrip);
                 MessageBox.Show("You have succesfully added a Trip Plan!", "Travel Plan Added");
             }
+
             //else
             //{
             // Unknown error message box? Failsafe?
             //    MessageBox.Show("You must choose either \"Trip\" or \"Vacation\". Please make sure you have correctly filled in all the fields.", "Error");
             //}
-            
 
         }
 
@@ -111,7 +109,7 @@ namespace TravelPal
                         rbtnAllInclusive.Visibility = Visibility.Visible;
                         cboTripType.Visibility = Visibility.Collapsed;
 
-                        //CheckMandatoryInputForSaving();
+                        TravelManager.CheckMandatoryInputForSaving(_travelType, txtDestination, dtpStart, dtpEnd, cboDestinationCountry, txtTravelerNr, btnSaveTravelInfo, cboTripType);
                         break;
                     }
                    
@@ -121,8 +119,8 @@ namespace TravelPal
 
                         rbtnAllInclusive.Visibility = Visibility.Collapsed;
                         cboTripType.Visibility = Visibility.Visible;
-                        
-                        //CheckMandatoryInputForSaving();
+
+                        TravelManager.CheckMandatoryInputForSaving(_travelType, txtDestination, dtpStart, dtpEnd, cboDestinationCountry, txtTravelerNr, btnSaveTravelInfo, cboTripType);
                         break;
                     }
                     
@@ -130,7 +128,7 @@ namespace TravelPal
                     {
                         _travelType = TravelTypes.None;      // Sets the traveltype variable to "None"
 
-                        //CheckMandatoryInputForSaving();
+                        TravelManager.CheckMandatoryInputForSaving(_travelType, txtDestination, dtpStart, dtpEnd, cboDestinationCountry, txtTravelerNr, btnSaveTravelInfo, cboTripType);
                         break;
                     }
             }
@@ -144,67 +142,34 @@ namespace TravelPal
 
         private void txtDestination_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //CheckMandatoryInputForSaving();
+            TravelManager.CheckMandatoryInputForSaving(_travelType, txtDestination, dtpStart, dtpEnd, cboDestinationCountry, txtTravelerNr, btnSaveTravelInfo, cboTripType);
         }
 
         private void cboDestinationCountry_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //CheckMandatoryInputForSaving();
+            TravelManager.CheckMandatoryInputForSaving(_travelType, txtDestination, dtpStart, dtpEnd, cboDestinationCountry, txtTravelerNr, btnSaveTravelInfo, cboTripType);
         }
 
         private void dtpStart_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            //CheckMandatoryInputForSaving();
+            TravelManager.CheckMandatoryInputForSaving(_travelType, txtDestination, dtpStart, dtpEnd, cboDestinationCountry, txtTravelerNr, btnSaveTravelInfo, cboTripType);
         }
 
         private void dtpEnd_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            //CheckMandatoryInputForSaving();
+            TravelManager.CheckMandatoryInputForSaving(_travelType, txtDestination, dtpStart, dtpEnd, cboDestinationCountry, txtTravelerNr, btnSaveTravelInfo, cboTripType);
         }
 
         private void txtTravelerNr_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //CheckMandatoryInputForSaving();
+            TravelManager.CheckMandatoryInputForSaving(_travelType, txtDestination, dtpStart, dtpEnd, cboDestinationCountry, txtTravelerNr, btnSaveTravelInfo, cboTripType);
         }
 
         private void cboTripType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //CheckMandatoryInputForSaving();
+            
             TravelManager.CheckMandatoryInputForSaving(_travelType, txtDestination,dtpStart,dtpEnd,cboDestinationCountry,txtTravelerNr,btnSaveTravelInfo,cboTripType);
         }
-
-
-        // Method to check if every input field that is necessary for saving a travel plan is not empty
-        //public void CheckMandatoryInputForSaving()
-        //{
-        //    btnSaveTravelInfo.IsEnabled = false;
-
-        //    if (_travelType == TravelTypes.Vacation
-        //                            && txtDestination.Text.Length != 0
-        //                            && dtpStart.SelectedDate != null
-        //                            && dtpEnd.SelectedDate != null
-        //                            && cboDestinationCountry.SelectedItem != null
-        //                            && txtTravelerNr.Text.Length != 0
-        //                            )
-        //    {
-        //        btnSaveTravelInfo.IsEnabled = true;
-        //    }
-        //    else if (_travelType == TravelTypes.Trip
-        //                            && txtDestination.Text.Length != 0
-        //                            && dtpStart.SelectedDate != null
-        //                            && dtpEnd.SelectedDate != null
-        //                            && cboDestinationCountry.SelectedItem != null
-        //                            && cboTripType.SelectedItem != null
-        //                            && txtTravelerNr.Text != null
-        //                            )
-        //    {
-        //        btnSaveTravelInfo.IsEnabled = true;
-        //    }
-        //    else
-        //    {
-        //        btnSaveTravelInfo.IsEnabled = false;
-        //    }
-        //}
     }
 
 }
