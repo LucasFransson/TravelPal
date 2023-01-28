@@ -1,0 +1,384 @@
+﻿<Window x:Class="TravelPal.UserDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TravelPal"
+          xmlns:local2="clr-namespace:TravelPal.ViewModels" d:DataContext="{d:DesignInstance Type=local2:UserViewModel}"
+        mc:Ignorable="d"
+Title="Account Settings" Height="768" Width="1024" WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF272B48" />
+                <GradientStop Color="#FF303452" Offset="0.167" />
+                <GradientStop Color="#FF272B48" Offset="0.987" />
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10" />
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="10" />
+        </Grid.ColumnDefinitions>
+
+        <Label x:Name="lblTopBackground"
+                Grid.ColumnSpan="11"
+                Grid.Row="1"
+            >
+            <Label.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Label.Background>
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
+        <Label x:Name="lblAccountInformation"
+               Content="Account Information" 
+               Grid.Row="1"
+               Grid.Column="1"
+               Grid.ColumnSpan="6"
+               FontSize="37"
+               FontWeight="DemiBold"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Center"
+            />
+        
+        <Label x:Name="lblChangeInfo"
+               Content="Change userName"
+               Grid.Row="2"
+               Grid.Column="7"
+               Grid.ColumnSpan="3"
+               FontSize="22"
+               FontWeight="Medium"
+               VerticalAlignment="Bottom"
+               HorizontalAlignment="Center"
+               Margin="0,0,0,10"
+               Visibility="Collapsed"
+               />
+
+        <Label x:Name="lblUsername"
+               Content="User Name"
+               Grid.Row="2"
+               Grid.Column="2" 
+               Foreground="#FFC4CAEC"
+               VerticalAlignment="Bottom"
+               
+               />
+
+        <Label x:Name="lblFirstName"
+               Content="First Name"
+               Grid.Row="4"
+               Grid.Column="2" 
+               Foreground="#FFC4CAEC"
+               VerticalAlignment="Bottom"
+               />
+
+        <Label x:Name="lblLastName"
+               Content="Last Name"
+               Grid.Row="6"
+               Grid.Column="2" 
+               Foreground="#FFC4CAEC"
+               VerticalAlignment="Bottom"
+               />
+
+        <Label x:Name="lblCountry"
+               Content="Country"
+               Grid.Row="8"
+               Grid.Column="2" 
+               Foreground="#FFC4CAEC"
+               VerticalAlignment="Bottom"
+               />
+
+        <Label x:Name="lblPassword"  
+               Content="Password"
+               Grid.Row="4"
+               Grid.Column="5" 
+               Foreground="#FFC4CAEC"
+               VerticalAlignment="Bottom"
+               Visibility="Collapsed"
+               
+               />
+
+
+        <TextBox x:Name="tbxUsername"
+                 Text="{Binding User.UserName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Row="3"
+                 Grid.Column="2"
+                 FontSize="22"
+                 HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 IsReadOnly="True"
+                 GotFocus="tbxUsername_GotFocus"
+                 LostFocus="tbxUsername_LostFocus"
+               
+                 />
+        
+        <TextBox x:Name="tbxFirstName"
+                 Text="{Binding User.FirstName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Row="5"
+                 Grid.Column="2"
+                 FontSize="22"
+                 HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 IsReadOnly="True"
+                 GotFocus="tbxFirstName_GotFocus"
+                 LostFocus="tbxFirstName_LostFocus"
+                 />
+        
+        <TextBox x:Name="tbxLastName"
+                 Text="{Binding User.LastName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Row="7"
+                 Grid.Column="2"
+                 FontSize="22"
+                 HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 IsReadOnly="True"
+                 GotFocus="tbxLastName_GotFocus"
+                 LostFocus="tbxLastName_LostFocus"
+            />
+        
+        <TextBox x:Name="tbxLocation" 
+                 Text="{Binding User.Location,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Row="9"
+                 Grid.Column="2"
+                 FontSize="22"
+                 HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Center"    
+                 IsReadOnly="True"
+            />
+        
+        <TextBox x:Name="tbxNewInfoOne"
+                 Grid.Row="3"
+                 Grid.Column="5"
+                 Visibility="Collapsed" 
+            />
+        
+        <TextBox x:Name="tbxNewInfoTwo"
+                 Grid.Row="5"
+                 Grid.Column="5"
+                 Visibility="Collapsed" 
+            />
+
+        <ComboBox x:Name="cboLocation"
+                  Grid.Row="5"
+                  Grid.Column="5"
+                  Visibility="Collapsed" 
+                  />
+
+        <Button x:Name="btnUserNameSave"      
+                Content="✓"
+                Grid.Row="3"
+                Grid.Column="3"
+                FontSize="40"
+                FontWeight="Black"
+                FontFamily="Arial"
+                Background="Transparent"
+                Height="50"
+                Width="50"
+                HorizontalAlignment="Left"
+                Visibility="Collapsed"
+                Click="btnUserNameSave_Click"
+                >
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter
+                        Property="CornerRadius" Value="10" />
+                </Style>
+            </Button.Resources>
+            <Button.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Button.Foreground>
+        </Button>
+
+        <Button x:Name="btnFirstNameSave"      
+                Content="✓"
+                Grid.Row="5"
+                Grid.Column="3"
+                FontSize="40"
+                FontWeight="Black"
+                FontFamily="Arial"
+                Background="Transparent"
+                Height="50"
+                Width="50"
+                HorizontalAlignment="Left"
+                Visibility="Collapsed"
+                Click="btnFirstNameSave_Click"
+                >
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter
+                        Property="CornerRadius" Value="10" />
+                </Style>
+            </Button.Resources>
+            <Button.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Button.Foreground>
+        </Button>
+
+        <Button x:Name="btnLastNameSave"      
+                Content="✓"
+                Grid.Row="7"
+                Grid.Column="3"
+                FontSize="40"
+                FontWeight="Black"
+                FontFamily="Arial"
+                Background="Transparent"
+                Height="50"
+                Width="50"
+                HorizontalAlignment="Left"
+                Visibility="Collapsed"
+                Click="btnLastNameSave_Click"
+                >
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter
+                        Property="CornerRadius" Value="10" />
+                </Style>
+            </Button.Resources>
+            <Button.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Button.Foreground>
+        </Button>
+
+        
+        
+        <Button x:Name="btnSetNewInfo"
+                Grid.Row="7"
+                Grid.Column="5"
+                Content="Confirm"
+                FontSize="19"
+                FontWeight="DemiBold"
+                Visibility="Collapsed" 
+                Click="btnSetNewInfo_Click"
+                >
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter
+                    Property="CornerRadius" Value="10" />
+                </Style>
+            </Button.Resources>
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
+        <Button x:Name="btnBack"
+                Content="🔙"
+                Grid.Row="1"
+                Grid.Column="1" 
+                Background="{x:Null}"
+                FontSize="50"
+                Click="btnBack_Click"
+                >
+            <Button.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF272B48" />
+                    <GradientStop Color="#FF303452" Offset="0.167" />
+                    <GradientStop Color="#FF272B48" Offset="0.987" />
+                </LinearGradientBrush>
+            </Button.Foreground>
+        </Button>
+
+
+        <Button x:Name="btnChangeUsername"
+                Content="Change"
+                Grid.Row="4"
+                Grid.Column="2"
+                Background="{x:Null}"
+                VerticalAlignment="Top"
+                Foreground="#FFCCD3D4"
+                Click="btnChangeUsername_Click"
+                />
+        
+        <Button x:Name="btnChangeFirstName"
+                Content="Change"
+                Grid.Row="6"
+                Grid.Column="2"
+                Background="{x:Null}"
+                VerticalAlignment="Top"
+                Foreground="#FFCCD3D4"
+                Click="btnChangeFirstName_Click"
+                />
+        
+        <Button x:Name="btnChangeLastName" 
+                Content="Change"
+                Grid.Row="8"
+                Grid.Column="2"
+                Background="{x:Null}"
+                VerticalAlignment="Top"
+                Foreground="#FFCCD3D4"
+                Click="btnChangeLastName_Click"
+                />
+        
+        <Button x:Name="btnChangeLocation"
+                Content="Change"
+                Grid.Row="10"
+                Grid.Column="2"
+                Background="{x:Null}"
+                VerticalAlignment="Top"
+                Foreground="#FFCCD3D4"
+                Click="btnChangeLocation_Click"
+                />
+        
+        <Button x:Name="btnChangePassword"
+                Content="Change Password"
+                Grid.Row="10"
+                Grid.Column="5"
+                Click="btnChangePassword_Click" Background="{x:Null}"
+                >
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter
+                    Property="CornerRadius" Value="10" />
+                </Style>
+            </Button.Resources>
+            <Button.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Button.Foreground>
+        </Button>
+    </Grid>
+</Window>

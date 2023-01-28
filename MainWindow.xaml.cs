@@ -36,7 +36,7 @@ namespace TravelPal
         {
             if(UserManager.CheckLogin(UserManager.FindIUserByUsername(tbxUserName.Text), // Search the UserManager class "users" List and if a match is found, return it to a new IUser object  
                                                                       tbxUserName.Text,
-                                                                      /*tbxPasswordFacade.Text*/pbxPassword.Password)) // If an IUser object is found and the username and password matches with that IUser object return true else return false
+                                                                      pbxPassword.Password)) // If an IUser object is found and the username and password matches with that IUser object return true else return false
             {
                 UserManager.SignedInUser = (User)UserManager.FindIUserByUsername(tbxUserName.Text); // Safe to use since this code only is reachable if the Username input matches with an existing IUser object
 
@@ -55,7 +55,7 @@ namespace TravelPal
         }
 
 
-
+        // Code for mimicking a "Watermark" on the textboxes
         private void tbxUserName_GotFocus(object sender, RoutedEventArgs e)
         {
             if (!_hasUserNameBeenClicked)
@@ -86,10 +86,7 @@ namespace TravelPal
             _hasPasswordBeenClicked = true;
 
         }
-        private void tbxPasswordFacade_TextChanged(object sender, TextChangedEventArgs e)
-        {
 
-        }
 
         private void pbxPassword_LostFocus(object sender, RoutedEventArgs e)
         {

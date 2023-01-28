@@ -23,13 +23,14 @@ namespace TravelPal
     /// </summary>
     public partial class HomeWindow : Window
     { 
-        UserViewModel userViewModel;    // Declare the UserViewModel that will handle the databinding/ Connection between the View ( UI ) and the Model ( User )
+        UserViewModel _userViewModel;    // Declare the UserViewModel that will handle the databinding/ Connection between the View ( UI ) and the Model ( User )
         public HomeWindow()
         {
             InitializeComponent();
+
             User user = (User)UserManager.SignedInUser;     // Create an instance of the User class and reference it to the UserManager.SignedInUser
-            userViewModel = new(user);      // Create an instance of the UserViewModel and assign the new User instance to the UserViewModels User property
-            DataContext = userViewModel;    // Set the Datacontext to the UserViewModel. From now on any changes to either SignedInUser or the User instance will update the userviewmodel         
+            _userViewModel = new(user);      // Create an instance of the UserViewModel and assign the new User instance to the UserViewModels User property
+            DataContext = _userViewModel;    // Set the Datacontext to the UserViewModel. From now on any changes to either SignedInUser or the User instance will update the userviewmodel         
         }
 
         private void btnLogOut_Click(object sender, RoutedEventArgs e)
@@ -37,23 +38,14 @@ namespace TravelPal
             UserManager.LogOutUser(this);   // Logs out the User, Closes this window and opens the start window
         }
 
-        private void btnAccountSettings_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnAboutUs_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+      
         private void btnRemoveTravel_Click(object sender, RoutedEventArgs e)
         {
             if (lvBookedTravels.SelectedItem != null)   // Checks if a item (Travel object) in the listview is selected
             {
                 UserManager.SignedInUser.travels.Remove(lvBookedTravels.SelectedItem as Travel);    // Casts the Selected ListViewItem to a Travel object and Removes it from the Signed in Users <Travel> List
             }
-            else { MessageBox.Show("You must select a Travel to remove","Error"); }
+            else { MessageBox.Show("You must select a Travel Plan to remove","Error: No Travel Plan Selected"); }
         }
 
         private void btnOpenAddTravel_Click(object sender, RoutedEventArgs e)
@@ -65,7 +57,20 @@ namespace TravelPal
 
         private void btnTravelDetails_Click(object sender, RoutedEventArgs e)
         {
+            TravelDetailsWindow travelDetailsWin = new(lvBookedTravels.SelectedItem as Travel);
+            travelDetailsWin.Show();
+            this.Close();
+        }
+        private void btnAccountSettings_Click(object sender, RoutedEventArgs e)
+        {
+            UserDetailsWindow userDetailsWin = new(_userViewModel);
+            userDetailsWin.Show();
+            this.Close();
+        }
+        private void btnAboutUs_Click(object sender, RoutedEventArgs e)
+        {
 
         }
+
     }
 }

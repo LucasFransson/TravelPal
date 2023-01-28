@@ -89,9 +89,7 @@
                      FontSize="20"
                      VerticalAlignment="Bottom"   
                      VerticalContentAlignment="Center"
-                     Visibility="Collapsed"
-                     
-                     
+                     Visibility="Collapsed"     
             >
             <RadioButton.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -100,7 +98,7 @@
                 </LinearGradientBrush>
             </RadioButton.Foreground>
         </RadioButton>
-        
+
         <DatePicker x:Name="dtpStart"
                     Grid.Row="4"
                     Grid.Column="1"
@@ -121,9 +119,65 @@
                     SelectedDateChanged="dtpEnd_SelectedDateChanged"
             />
 
+        <CheckBox x:Name="cbxIsDocument"
+                  Content="Document"
+                  Grid.Row="2"
+                  Grid.Column="4"
+                  FontFamily="Arial"
+                  FontSize="14"
+                  
+                  VerticalContentAlignment="Center"
+                  BorderBrush="#FFE0E0E0"
+                  Foreground="#FF3CADB5"
+                  Click="cbxIsDocument_Click"
+                  />
+        <CheckBox x:Name="cbxIsRequired"
+                  Content="Is Required"
+                  Grid.Column="4"
+                  Grid.Row="2"
+                  FontFamily="Arial"
+                  FontSize="14"
+                  VerticalContentAlignment="Center"
+                  HorizontalAlignment="Center"
+                  BorderBrush="#FFE0E0E0"
+                  Foreground="#FF3CADB5"
+                  Visibility="Collapsed"
+                  />
+        <Label x:Name="lblQuantity"
+               Content="Quantity"
+               Grid.Column="4"
+               Grid.Row="2"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Right"
 
+            >
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
         
-        <TextBox x:Name="txtTravelerNr"
+            <TextBox x:Name="tbxQtyInput"
+                     Grid.Row="2"
+                     Grid.Column="4"
+                     VerticalAlignment="Bottom"
+                     HorizontalAlignment="Right"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"
+                     Height="40"
+                     Width="40"
+                 >
+            <TextBox.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </TextBox.BorderBrush>
+        </TextBox>
+
+            <TextBox x:Name="txtTravelerNr"
                  Grid.Row="5"
                  Grid.Column="2"
                  Height="50"
@@ -173,6 +227,7 @@
                 Height="50"
                 Width="50"
                 HorizontalAlignment="Left"
+                Click="btnPackAdd_Click"
                 >
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -195,6 +250,7 @@
                 Background="Transparent"
                 FontSize="40"
                 FontWeight="Bold"
+                Click="btnPackRemove_Click"
             >
             <Button.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

@@ -25,8 +25,33 @@ namespace TravelPal
         {
             InitializeComponent();
             _travel= travel;
+            this.DataContext = _travel;
+
             string travelInformation = _travel.GetInfo();
-            StringBuilder sb = new StringBuilder(); 
+            StringBuilder sb = new StringBuilder();
+
+            lvTravelSelected.Items.Add(_travel.ToString());
+            //sb.AppendLine(Environment.NewLine);
+
+            sb.AppendLine($"Destination: {travel.Destination}");
+            if (travel is Trip trip)
+            {
+                sb.AppendLine("Trip");
+                sb.AppendLine($"Type: {trip.Type}");
+            }
+            else if (travel is Vacation vacation)
+            {
+                sb.AppendLine("Vacation");
+                sb.AppendLine($"All Inclusive: {vacation.IsAllInClusive}");
+            }
+
+            sb.AppendLine($"Destination Country: {travel.Country}");
+            sb.AppendLine($"Number Of Travellers: {travel.NumberOfTravellers}");
+            sb.AppendLine($"StartDate: {travel.StartDate}");
+            sb.AppendLine($"EndDate: {travel.EndDate}");
+            sb.AppendLine($"Duration: {travel.TravelDuration} days");
+
+            tbxTravelInfo.Text = sb.ToString();
         }
 
         private void btnEditTravel_Click(object sender, RoutedEventArgs e)
