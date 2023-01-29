@@ -59,7 +59,7 @@
                   SelectionChanged="lvTravelSelected_SelectionChanged"
             />
         <ListView x:Name="lvTravelPackList"
-                  ItemsSource="{Binding Travel.PackingList}"
+                  ItemsSource="{Binding User.CurrentTravel.PackingList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                   Grid.Column="4" 
                   Grid.Row="4" 
             />

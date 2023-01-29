@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace TravelPal.Models
 {
     public class Travel
     {
-        public List<IPackingListItem> PackingList { get; set; } = new();
+        public ObservableCollection<IPackingListItem> PackingList { get; set; } = new();
         public string Destination { get; set; }
         public Countries Country { get; set; }
         public int NumberOfTravellers { get; set; }

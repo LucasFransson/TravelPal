@@ -15,6 +15,7 @@ using TravelPal.Models;
 using TravelPal.Managers;
 using TravelPal.Enums;
 using TravelPal.Interfaces;
+using System.Collections.ObjectModel;
 
 namespace TravelPal
 {
@@ -24,7 +25,7 @@ namespace TravelPal
     public partial class AddTravelWindow : Window
     {
 
-        private List<IPackingListItem> _packingListItems = new();
+        private ObservableCollection<IPackingListItem> _packingListItems = new();
 
         private TravelTypes _travelType = TravelTypes.None;
         public AddTravelWindow()
@@ -45,9 +46,6 @@ namespace TravelPal
         
         private void btnSaveTravelInfo_Click(object sender, RoutedEventArgs e)
         {
-
-            
-            
 
             bool isNrOk = int.TryParse(txtTravelerNr.Text, out int number);     // Tries to parse the text from tbxTravelerNr to an integer
             if (!isNrOk )   // If the parse failed
@@ -105,8 +103,6 @@ namespace TravelPal
 
         private void cboTravelType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-            // Change to polymorphism
 
             switch (cboTravelType.SelectedItem.ToString())      // Changes visibility of elements connected to specific Types of Travel
             {

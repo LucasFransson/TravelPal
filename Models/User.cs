@@ -27,8 +27,8 @@ namespace TravelPal.Models
         public int UserID { get; set; }
 
         public Countries Location { get; set; }
+        public Travel CurrentTravel { get; set; }   // Testing for MVVM / Datacontext
 
-        //public List<Travel> travels { get; set; } = new();
 
         public ObservableCollection <Travel> travels { get; set; } = new();     // Using an "ObservableCollection" instead of a list to gain access to the INotifyPropertyChanged interface 
 
@@ -48,6 +48,10 @@ namespace TravelPal.Models
         public void SetUserID()
         {
             UserID = UserManager.GenerateGUID(); 
+        }
+        public void UpdateUserTravel(Travel travel)
+        {
+            CurrentTravel = travel;
         }
         protected void OnPropertyChanged(string propertyName)
         {

@@ -23,5 +23,9 @@ namespace TravelPal.Models
         {
             return $"{Name} Quantity: {Quantity}";
         }
+        public override string ToString()
+        {
+            return $"{Name} = {Quantity}";
+        }
     }
 }

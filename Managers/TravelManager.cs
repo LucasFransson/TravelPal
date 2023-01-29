@@ -37,18 +37,20 @@ namespace TravelPal.Managers
             return (TripTypes)Enum.Parse(typeof(TripTypes), stringToParse);
         }
 
-        public static void DisplayPackingListToListView(Travel travel,ListView lv)
-        {
-            if (travel != null)
-            {
-                lv.Items.Clear(); // Clears the listview before adding the content
 
-                foreach (var item in travel.PackingList)
-                {
-                    lv.Items.Add(item.GetInfo());
-                }
-            }
-        }
+        // Not in use due to databinding and Itemssource instead
+        //public static void DisplayPackingListToListView(Travel travel,ListView lv)
+        //{
+        //    if (travel != null)
+        //    {
+        //        lv.Items.Clear(); // Clears the listview before adding the content
+
+        //        foreach (var item in travel.PackingList)
+        //        {
+        //            lv.Items.Add(item.GetInfo());
+        //        }
+        //    }
+        //}
         // Displays formated text information about a specific Travel object and displays it in a Textbox
         public static void DisplayTravelDetailsTextBox(Travel travel,TextBox tbx)
         {

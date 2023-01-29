@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.Pkcs;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,12 +29,17 @@ namespace TravelPal
         public TravelDetailsWindow(Travel travel,UserViewModel userViewModel)
         {
             InitializeComponent();
+
             _travel= travel;
-            _userViewModel= userViewModel;
+            _userViewModel = userViewModel;
+
+            UserManager.SignedInUser.UpdateUserTravel(_travel);
+           
             DataContext = _userViewModel;
 
+
             TravelManager.DisplayTravelDetailsTextBox(travel, tbxTravelInfo);
-            TravelManager.DisplayPackingListToListView(travel, lvTravelPackList);
+            //TravelManager.DisplayPackingListToListView(travel, lvTravelPackList);
         }
 
         private void btnEditTravel_Click(object sender, RoutedEventArgs e)
@@ -53,8 +59,7 @@ namespace TravelPal
 
         private void btnRemoveItem_Click(object sender, RoutedEventArgs e)
         {
-            _travel.RemoveItem(lvTravelPackList.SelectedItem as IPackingListItem);
-   
+            UserManager.SignedInUser.CurrentTravel.RemoveItem(lvTravelPackList.SelectedItem as IPackingListItem);
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -68,8 +73,9 @@ namespace TravelPal
         {
             _travel = (Travel)lvTravelSelected.SelectedItem;    // Changes the Travel object to the newly selected Travel object
 
+            UserManager.SignedInUser.UpdateUserTravel(_travel);
             TravelManager.DisplayTravelDetailsTextBox(_travel,tbxTravelInfo);
-            TravelManager.DisplayPackingListToListView(_travel,lvTravelPackList);
+            //TravelManager.DisplayPackingListToListView(_travel,lvTravelPackList);
         }
     }
 }

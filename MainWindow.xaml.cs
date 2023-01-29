@@ -30,7 +30,6 @@ namespace TravelPal
             InitializeComponent();
             UserManager.PopulateTestUsers();
         }
-     
 
         private void btnLogIn_Click(object sender, RoutedEventArgs e)
         {
@@ -39,12 +38,12 @@ namespace TravelPal
                                                                       pbxPassword.Password)) // If an IUser object is found and the username and password matches with that IUser object return true else return false
             {
                 UserManager.SignedInUser = (User)UserManager.FindIUserByUsername(tbxUserName.Text); // Safe to use since this code only is reachable if the Username input matches with an existing IUser object
-                TravelManager.LoadTestTravels();
+                TravelManager.LoadTestTravels();    // Creates and sets an vacation and a trip object to the user for testing purposes 
                 HomeWindow homeWin = new();
                 homeWin.Show();
                 this.Close();
             }
-            else { MessageBox.Show("Username or Password was not correct!", "Wrong Input"); }   // Shows an Error Message 
+            else { MessageBox.Show("Username or Password was not correct!", "Wrong Input"); }   // Display an Error Message 
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
@@ -77,8 +76,6 @@ namespace TravelPal
         {
             tbxPasswordFacade.Visibility = Visibility.Collapsed;  // Sets the facadetextbox overlapping the pbx to collapsed visibility
         }
-
-
         private void tbxPasswordFacade_GotFocus(object sender, RoutedEventArgs e)
         {      
             pbxPassword.Focus(); // if the user clicks on the facadetextbox this method sets the focus to the pbx behind the tbx
@@ -86,8 +83,6 @@ namespace TravelPal
             _hasPasswordBeenClicked = true;
 
         }
-
-
         private void pbxPassword_LostFocus(object sender, RoutedEventArgs e)
         {
             if (pbxPassword.Password.Length==0 )

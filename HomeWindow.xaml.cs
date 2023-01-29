@@ -27,8 +27,6 @@ namespace TravelPal
         public HomeWindow()
         {
             InitializeComponent();
-
-
             User user = (User)UserManager.SignedInUser;     // Create an instance of the User class and reference it to the UserManager.SignedInUser
             _userViewModel = new(user);      // Create an instance of the UserViewModel and assign the new User instance to the UserViewModels User property
             DataContext = _userViewModel;    // Set the Datacontext to the UserViewModel. From now on any changes to either SignedInUser or the User instance will update the userviewmodel         
@@ -36,9 +34,8 @@ namespace TravelPal
 
         private void btnLogOut_Click(object sender, RoutedEventArgs e)
         {
-            UserManager.LogOutUser(this);   // Logs out the User, Closes this window and opens the start window
+            UserManager.LogOutUser(this);   // Logs out the User, Closes this window and opens the start(main) window
         }
-
       
         private void btnRemoveTravel_Click(object sender, RoutedEventArgs e)
         {

@@ -23,6 +23,9 @@ namespace TravelPal.Models
         {
             return $"{Name} = {IsRequired}";
         }
-
+        public override string ToString()
+        {
+            return $"{Name} = {IsRequired}";
+        }
     }
 }
