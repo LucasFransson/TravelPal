@@ -34,5 +34,10 @@ namespace TravelPal.Models
         {
             return $"Destination: PlaceHolder | Country: PlaceHolder";
         }
+
+        public void RemoveItem(IPackingListItem item)
+        {
+            PackingList.Remove(item);
+        }
     }
 }

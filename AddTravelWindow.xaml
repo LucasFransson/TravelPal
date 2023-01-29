@@ -38,6 +38,112 @@
         </Grid.RowDefinitions>
 
 
+        <Label x:Name="lblTravelType"
+               Content="Travel Type"
+               Grid.Row="2"
+               Grid.Column="1"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Center"
+               >
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
+
+        <Label x:Name="lblDestination"
+               Content="Destination Name"
+               Grid.Row="3"
+               Grid.Column="1"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Center"
+               >
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
+
+        <Label x:Name="lblCountry"
+               Content="Country"
+               Grid.Row="3"
+               Grid.Column="2"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Center"
+               >
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
+
+        <Label x:Name="lblDateStart"
+               Content="Start Date"
+               Grid.Row="4"
+               Grid.Column="1"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Center"
+               >
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
+
+        <Label x:Name="lblDateEnd"
+               Content="End Date"
+               Grid.Row="4"
+               Grid.Column="2"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Center"
+               >
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
+
+
+        <Label x:Name="lblNTravellers"
+               Content="Number Of Travellers"
+               Grid.Row="5"
+               Grid.Column="2"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Center"
+               >
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
+
+        <Label x:Name="lblTripTypes"
+               Content="Trip Type"
+               Grid.Row="5"
+               Grid.Column="1"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Center"
+               Visibility="Collapsed"
+               >
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
 
         <TextBox x:Name="txtDestination"
                  Grid.Row="3"
@@ -189,8 +295,10 @@
            />
         <TextBox x:Name="txtPackingItem"
                  Grid.Row="3"
-                 Grid.Column="4"
+                 Grid.Column="4"              
                  BorderThickness="5"
+                 Height="40"
+                 VerticalAlignment="Top"
                  >
             <TextBox.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -201,11 +309,13 @@
         </TextBox>
 
         <ListView x:Name="lvPackingList"
-                  Grid.Row="4"
+                  Grid.Row="3"
                   Grid.Column="4"
-                  Grid.RowSpan="3"
+                  Grid.RowSpan="4"
                   Background="#FFE6EAEC"
                   BorderThickness="5"
+                  Height="270"
+                  VerticalAlignment="Bottom"
                   >
             <ListView.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -224,9 +334,10 @@
                 FontWeight="Black"
                 FontFamily="Arial"
                 Background="Transparent"
-                Height="50"
-                Width="50"
+                Height="40"
+                Width="40"
                 HorizontalAlignment="Left"
+                VerticalAlignment="Top"
                 Click="btnPackAdd_Click"
                 >
                 <Button.Resources>

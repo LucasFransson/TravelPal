@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelPal"
-        xmlns:local2="clr-namespace:TravelPal.Models" d:DataContext="{d:DesignInstance Type=local2:Travel}"
+         xmlns:local2="clr-namespace:TravelPal.ViewModels" d:DataContext="{d:DesignInstance Type=local2:UserViewModel}"
         mc:Ignorable="d"
      Title="Travel Plan Details" Height="768" Width="1024" WindowStartupLocation="CenterScreen">
     <Grid>
@@ -53,8 +53,10 @@
         </Label>
 
         <ListView x:Name="lvTravelSelected"
+                  ItemsSource="{Binding User.travels,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                   Grid.Column="2"
                   Grid.Row="2" 
+                  SelectionChanged="lvTravelSelected_SelectionChanged"
             />
         <ListView x:Name="lvTravelPackList"
                   ItemsSource="{Binding Travel.PackingList}"

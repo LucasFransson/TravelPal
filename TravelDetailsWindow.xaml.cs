@@ -11,7 +11,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TravelPal.Interfaces;
+using TravelPal.Managers;
 using TravelPal.Models;
+using TravelPal.ViewModels;
 
 namespace TravelPal
 {
@@ -20,38 +23,17 @@ namespace TravelPal
     /// </summary>
     public partial class TravelDetailsWindow : Window
     {
-        private Travel _travel;
-        public TravelDetailsWindow(Travel travel)
+        Travel _travel;
+        UserViewModel _userViewModel;
+        public TravelDetailsWindow(Travel travel,UserViewModel userViewModel)
         {
             InitializeComponent();
             _travel= travel;
-            this.DataContext = _travel;
+            _userViewModel= userViewModel;
+            DataContext = _userViewModel;
 
-            string travelInformation = _travel.GetInfo();
-            StringBuilder sb = new StringBuilder();
-
-            lvTravelSelected.Items.Add(_travel.ToString());
-            //sb.AppendLine(Environment.NewLine);
-
-            sb.AppendLine($"Destination: {travel.Destination}");
-            if (travel is Trip trip)
-            {
-                sb.AppendLine("Trip");
-                sb.AppendLine($"Type: {trip.Type}");
-            }
-            else if (travel is Vacation vacation)
-            {
-                sb.AppendLine("Vacation");
-                sb.AppendLine($"All Inclusive: {vacation.IsAllInClusive}");
-            }
-
-            sb.AppendLine($"Destination Country: {travel.Country}");
-            sb.AppendLine($"Number Of Travellers: {travel.NumberOfTravellers}");
-            sb.AppendLine($"StartDate: {travel.StartDate}");
-            sb.AppendLine($"EndDate: {travel.EndDate}");
-            sb.AppendLine($"Duration: {travel.TravelDuration} days");
-
-            tbxTravelInfo.Text = sb.ToString();
+            TravelManager.DisplayTravelDetailsTextBox(travel, tbxTravelInfo);
+            TravelManager.DisplayPackingListToListView(travel, lvTravelPackList);
         }
 
         private void btnEditTravel_Click(object sender, RoutedEventArgs e)
@@ -61,17 +43,33 @@ namespace TravelPal
 
         private void btnRemoveTravel_Click(object sender, RoutedEventArgs e)
         {
-
+            if (lvTravelSelected.SelectedItem != null)   // Checks if an item (Travel object) in the listview is selected
+            {
+                UserManager.SignedInUser.travels.Remove(lvTravelSelected.SelectedItem as Travel);    // Casts the Selected ListViewItem to a Travel object and Removes it from the Signed in Users <Travel> List
+                MessageBox.Show("You have Removed this Travel Plan!");
+            }
+            else { MessageBox.Show("You must select a Travel Plan to remove", "Error: No Travel Plan Selected"); }
         }
 
         private void btnRemoveItem_Click(object sender, RoutedEventArgs e)
         {
-
+            _travel.RemoveItem(lvTravelPackList.SelectedItem as IPackingListItem);
+   
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
+            HomeWindow homeWin = new();
+            homeWin.Show();
+            this.Close();
+        }
 
+        private void lvTravelSelected_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _travel = (Travel)lvTravelSelected.SelectedItem;    // Changes the Travel object to the newly selected Travel object
+
+            TravelManager.DisplayTravelDetailsTextBox(_travel,tbxTravelInfo);
+            TravelManager.DisplayPackingListToListView(_travel,lvTravelPackList);
         }
     }
 }

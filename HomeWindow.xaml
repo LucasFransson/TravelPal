@@ -57,11 +57,12 @@
 
 
         <ListView x:Name="lvBookedTravels"
-                  ItemsSource="{Binding User.travels}"
+                  ItemsSource="{Binding User.travels,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                   Grid.Row="2"
                   Grid.Column="2"
                   Grid.RowSpan="4"
                   Foreground="Black"  
+                  
                   />
 
         <Button x:Name="btnOpenAddTravel"

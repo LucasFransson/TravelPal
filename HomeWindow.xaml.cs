@@ -28,6 +28,7 @@ namespace TravelPal
         {
             InitializeComponent();
 
+
             User user = (User)UserManager.SignedInUser;     // Create an instance of the User class and reference it to the UserManager.SignedInUser
             _userViewModel = new(user);      // Create an instance of the UserViewModel and assign the new User instance to the UserViewModels User property
             DataContext = _userViewModel;    // Set the Datacontext to the UserViewModel. From now on any changes to either SignedInUser or the User instance will update the userviewmodel         
@@ -41,7 +42,7 @@ namespace TravelPal
       
         private void btnRemoveTravel_Click(object sender, RoutedEventArgs e)
         {
-            if (lvBookedTravels.SelectedItem != null)   // Checks if a item (Travel object) in the listview is selected
+            if (lvBookedTravels.SelectedItem != null)   // Checks if an item (Travel object) in the listview is selected
             {
                 UserManager.SignedInUser.travels.Remove(lvBookedTravels.SelectedItem as Travel);    // Casts the Selected ListViewItem to a Travel object and Removes it from the Signed in Users <Travel> List
             }
@@ -57,7 +58,7 @@ namespace TravelPal
 
         private void btnTravelDetails_Click(object sender, RoutedEventArgs e)
         {
-            TravelDetailsWindow travelDetailsWin = new(lvBookedTravels.SelectedItem as Travel);
+            TravelDetailsWindow travelDetailsWin = new(lvBookedTravels.SelectedItem as Travel,_userViewModel);
             travelDetailsWin.Show();
             this.Close();
         }
@@ -71,6 +72,7 @@ namespace TravelPal
         {
 
         }
+
 
     }
 }

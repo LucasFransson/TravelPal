@@ -39,7 +39,7 @@ namespace TravelPal
                                                                       pbxPassword.Password)) // If an IUser object is found and the username and password matches with that IUser object return true else return false
             {
                 UserManager.SignedInUser = (User)UserManager.FindIUserByUsername(tbxUserName.Text); // Safe to use since this code only is reachable if the Username input matches with an existing IUser object
-
+                TravelManager.LoadTestTravels();
                 HomeWindow homeWin = new();
                 homeWin.Show();
                 this.Close();

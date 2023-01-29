@@ -46,6 +46,8 @@ namespace TravelPal
         private void btnSaveTravelInfo_Click(object sender, RoutedEventArgs e)
         {
 
+            
+            
 
             bool isNrOk = int.TryParse(txtTravelerNr.Text, out int number);     // Tries to parse the text from tbxTravelerNr to an integer
             if (!isNrOk )   // If the parse failed
@@ -104,43 +106,6 @@ namespace TravelPal
         private void cboTravelType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-
-
-            //switch (_travelType)      // Changes visibility of elements connected to specific Types of Travel
-            //{
-            //    case TravelTypes.Vacation:
-            //        {
-            //            _travelType = TravelTypes.Vacation;     // Sets the traveltype variable to "Vacation"
-
-            //            rbtnAllInclusive.Visibility = Visibility.Visible;
-            //            cboTripType.Visibility = Visibility.Collapsed;
-
-            //            TravelManager.CheckMandatoryInputForSaving(_travelType, txtDestination, dtpStart, dtpEnd, cboDestinationCountry, txtTravelerNr, btnSaveTravelInfo, cboTripType);
-            //            break;
-            //        }
-
-            //    case TravelTypes.Trip:
-            //        {
-            //            _travelType = TravelTypes.Trip;     // Sets the traveltype variable to "Trip"
-
-            //            rbtnAllInclusive.Visibility = Visibility.Collapsed;
-            //            cboTripType.Visibility = Visibility.Visible;
-
-            //            TravelManager.CheckMandatoryInputForSaving(_travelType, txtDestination, dtpStart, dtpEnd, cboDestinationCountry, txtTravelerNr, btnSaveTravelInfo, cboTripType);
-            //            break;
-            //        }
-
-            //    default:
-            //        {
-            //            _travelType = TravelTypes.None;      // Sets the traveltype variable to "None"
-
-            //            TravelManager.CheckMandatoryInputForSaving(_travelType, txtDestination, dtpStart, dtpEnd, cboDestinationCountry, txtTravelerNr, btnSaveTravelInfo, cboTripType);
-            //            break;
-            //        }
-            //}
-
-
-
             // Change to polymorphism
 
             switch (cboTravelType.SelectedItem.ToString())      // Changes visibility of elements connected to specific Types of Travel
@@ -151,6 +116,7 @@ namespace TravelPal
 
                         rbtnAllInclusive.Visibility = Visibility.Visible;
                         cboTripType.Visibility = Visibility.Collapsed;
+                        lblTripTypes.Visibility = Visibility.Collapsed;
 
                         TravelManager.CheckMandatoryInputForSaving(_travelType, txtDestination, dtpStart, dtpEnd, cboDestinationCountry, txtTravelerNr, btnSaveTravelInfo, cboTripType);
                         break;
@@ -162,6 +128,7 @@ namespace TravelPal
 
                         rbtnAllInclusive.Visibility = Visibility.Collapsed;
                         cboTripType.Visibility = Visibility.Visible;
+                        lblTripTypes.Visibility = Visibility.Visible;
 
                         TravelManager.CheckMandatoryInputForSaving(_travelType, txtDestination, dtpStart, dtpEnd, cboDestinationCountry, txtTravelerNr, btnSaveTravelInfo, cboTripType);
                         break;
@@ -232,6 +199,7 @@ namespace TravelPal
 
         private void btnPackAdd_Click(object sender, RoutedEventArgs e)
         {
+
             if(cbxIsDocument.IsChecked== true) // Creating TravelDocument
             {
                 bool isRequired = false;    // Initialises a bool that will handle the value from cbxIsRequired, sets the starting value to false. 
@@ -242,8 +210,16 @@ namespace TravelPal
             }
             else   // Creating OtherItem
             {
-                OtherItem oItem = new(txtPackingItem.Text,int.Parse(tbxQtyInput.Text));
+                bool isNrOk = int.TryParse(tbxQtyInput.Text, out int number);     // Tries to parse the text from tbxQtyInput to an integer
+                if (!isNrOk || string.IsNullOrEmpty(tbxQtyInput.Text))   // If the parse failed or If input is null or empty stop the method
+                {
+                    MessageBox.Show("You must enter a number in the \"Quantity\" Field.", "Wrong Input");
+                    return; // If the textbox was not parsable to an int "return" to stop the rest of code to execute.
+                }
+                
+                OtherItem oItem = new(txtPackingItem.Text, int.Parse(tbxQtyInput.Text));
                 _packingListItems.Add(oItem);
+                
             }
             UpdateLV(lvPackingList);
         }

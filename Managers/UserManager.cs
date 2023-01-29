@@ -61,6 +61,7 @@ namespace TravelPal.Managers
 
             User user = new("Gandalf", "Efternamnsson", "Gandalf", "password", Countries.Afghanistan);
             users.Add(user);
+            //TravelManager.CreateTrip();
 
             User newUser = new("Lucas", "Fransson", "Lucas", "password", Countries.Sweden);
             users.Add(newUser);

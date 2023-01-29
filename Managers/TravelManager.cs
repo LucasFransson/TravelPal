@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,56 @@ namespace TravelPal.Managers
         public static TripTypes ParseStringToTripTypeEnum(string stringToParse)
         {
             return (TripTypes)Enum.Parse(typeof(TripTypes), stringToParse);
+        }
+
+        public static void DisplayPackingListToListView(Travel travel,ListView lv)
+        {
+            if (travel != null)
+            {
+                lv.Items.Clear(); // Clears the listview before adding the content
+
+                foreach (var item in travel.PackingList)
+                {
+                    lv.Items.Add(item.GetInfo());
+                }
+            }
+        }
+        // Displays formated text information about a specific Travel object and displays it in a Textbox
+        public static void DisplayTravelDetailsTextBox(Travel travel,TextBox tbx)
+        {
+            if (travel != null)     // null check to prevent crashes from occuring when removing a travel object w using SelectionChanged event
+            {
+                string travelInformation = travel.GetInfo();
+                StringBuilder sb = new StringBuilder();
+
+                sb.AppendLine($"Destination: {travel.Destination}");
+                if (travel is Trip trip)
+                {
+                    sb.AppendLine("Trip");
+                    sb.AppendLine($"Type: {trip.Type}");
+                }
+                else if (travel is Vacation vacation)
+                {
+                    sb.AppendLine("Vacation");
+                    sb.AppendLine($"All Inclusive: {vacation.IsAllInClusive}");
+                }
+
+                sb.AppendLine($"Destination Country: {travel.Country}");
+                sb.AppendLine($"Number Of Travellers: {travel.NumberOfTravellers}");
+                sb.AppendLine($"StartDate: {travel.StartDate}");
+                sb.AppendLine($"EndDate: {travel.EndDate}");
+                sb.AppendLine($"Duration: {travel.TravelDuration} days");
+
+                tbx.Text = sb.ToString();
+            }
+        }
+
+        public static void LoadTestTravels()
+        {
+            Trip trip = CreateTrip("Ankeborg", Countries.UnitedStates, 1, DateTime.Now, DateTime.Now, TripTypes.Work);
+            Vacation vacation = CreateVacation("Mustafar",Countries.Australia,3,DateTime.Now,DateTime.Now,false);
+            UserManager.SignedInUser.travels.Add(trip);
+            UserManager.SignedInUser.travels.Add(vacation);
         }
 
         public static void CheckMandatoryInputForSaving(TravelTypes travelType, TextBox tbxDestination, DatePicker dtpStart, DatePicker dtpEnd, ComboBox cboDestinationCountry, TextBox tbxTravelerNr, Button btnSaveTravelInfo, ComboBox cboTripType)
