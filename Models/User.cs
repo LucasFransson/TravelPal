@@ -26,7 +26,19 @@ namespace TravelPal.Models
 
         public int UserID { get; set; }
 
-        public Countries Location { get; set; }
+        //public Countries Location { get; set; }
+
+        private Countries _location;
+        public Countries Location
+        {
+            get { return _location; }
+            set
+            {
+                _location = value;
+                OnPropertyChanged("Location");
+            }
+        }
+
         //public Travel CurrentTravel { get; set; }   // Testing for MVVM / Datacontext
 
         private Travel _currentTravel;

@@ -62,7 +62,21 @@
                   ItemsSource="{Binding User.CurrentTravel.PackingList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                   Grid.Column="4" 
                   Grid.Row="4" 
-            />
+            >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" 
+                      DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Quantity" 
+                      DisplayMemberBinding="{Binding Quantity}" />
+                    <GridViewColumn Header="Required" 
+                      DisplayMemberBinding="{Binding IsRequired}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
+
         <TextBox x:Name="tbxTravelInfo"
                 Grid.Column="2"
                 Grid.Row="4"

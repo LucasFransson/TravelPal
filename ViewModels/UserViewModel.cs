@@ -33,13 +33,25 @@ namespace TravelPal.ViewModels
 
         public ObservableCollection<Travel> Travels { get; set; } = new();      // Using an "ObservableCollection" instead of a list to gain access to the INotifyPropertyChanged interface 
 
-        public ObservableCollection<IPackingListItem> CurrentPackingList { get; set; } = new();
+        // public ObservableCollection<IPackingListItem> CurrentPackingList { get; set; } = new();
+
+        private ObservableCollection<IPackingListItem> currentPackingList;
+        public ObservableCollection<IPackingListItem> CurrentPackingList
+        {
+            get { return currentPackingList; }
+            set
+            {
+                currentPackingList = value;
+                OnPropertyChanged("Items");
+            }
+        } 
 
         public UserViewModel(User user)
         {
             _user = user;       // Sets this User instance to the User from parameteres by reference
             Travels = user.travels;     // Sets this "List" to the User instances "List" by reference
             _travel = user.CurrentTravel;
+            currentPackingList = new();
 
         }
 

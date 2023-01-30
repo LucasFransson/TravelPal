@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using TravelPal.Enums;
 using TravelPal.Interfaces;
 using TravelPal.Models;
+using TravelPal.ViewModels;
 
 namespace TravelPal.Managers
 {
@@ -56,14 +57,105 @@ namespace TravelPal.Managers
                     lv.Items.Add(item.GetInfo());
                 }
         }
+
         // Creates a travelDocument named "PassPort" and sets true/false depending on parameters
         public static TravelDocument CreatePassPort(bool isRequired)
         {
             return new TravelDocument("PassPort",isRequired);
 
-            //TravelDocument passPort = new("PassPort",true);
-            //return passPort;
         }
+
+        // Iterates through the UserViewModel objects CurrentPackingList and checks if any item has the name "PassPort", returns true upon match
+        public static bool DoesPackingListContainPassPort(UserViewModel userViewModel)
+        {
+            foreach(var item in userViewModel.CurrentPackingList)
+            {
+                if (item.Name == "PassPort")
+                {
+                    return true;
+                }
+            }
+            return false;
+
+        }
+
+        // Changes a TravelDocument objects 'IsRequired' property to a new boolean value
+        public static void ChangeTravelDocumentBoolValue(TravelDocument travelDocument,bool isRequired)
+        {
+            travelDocument.IsRequired = isRequired;
+        }
+
+        // Checks if the name of the Country exists in the EUCountries enum, return true if ít does 
+        public static bool IsCountryInEU(string countryName)
+        {
+            foreach(var country in Enum.GetNames(typeof(EUCountries)))
+            {
+                if (country.ToString() == countryName)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static void ManageAutoItemPassPort(ComboBox cboDestinationCountry,UserViewModel userViewModel)
+        {
+            // This Code should be refactored due to it being hard to read and follow! Comments below are excessive and makes the reading flow slower, but they necessary for easier understanding and refactoring later 
+            // This Code was first implemented in the View, 'AddTravelWindow', but due to the amount of code I instead put it all under a broad method that handles everything connected to the automatic 'TravelDocument' "PassPort" 
+            // This Method uses the methods:  'IsCountryInEU. Return Value = bool. Purpose = check if Country is in EU', 'DoesPackingListContainPassPort. Return Value = bool. Purpose = check if PackingList have a PassPort'. 'ChangeTravelDocumentBoolValue. Return Value = void. Purpose = change value of bool in PassPort. 
+
+            // Checks if the newly selected Country is in EU
+            if (TravelManager.IsCountryInEU(cboDestinationCountry.SelectedItem.ToString()) == true)   // Checks if the newly selected Country is in EU
+            {
+                // IF the selected Country is in EU
+                if (TravelManager.DoesPackingListContainPassPort(userViewModel))   // Checks if the CurrentPackingList contains a passPort
+                {
+                    foreach (var item in userViewModel.CurrentPackingList)    // Iterates through all 'IPackingListItems'
+                    {
+                        if (item is TravelDocument travelDocument)    // IF the 'IPackingListItem' is of the type TravelDocument, create a new TravelDocument object called 'travelDocument'
+                        {
+                            if (travelDocument.Name.Equals("PassPort"))    // IF the 'travelDocuments' 'Name' property is "PassPort"
+                            {
+                                TravelManager.ChangeTravelDocumentBoolValue(travelDocument, false);    // Set the 'travelDocuments' with the 'Name'="PassPort"'s 'IsRequired' property to 'false', since no passport is needed inside EU
+                            }
+                        }
+                    }
+                    // Cast crashes, Using nested iterations and conditionals instead. Refactor this if possible, code is not easily readable! 
+                    //TravelDocument passPort = (TravelDocument)_userViewModel.CurrentPackingList.Where(item => item.Name.Equals("PassPort"));    // Gets the TravelDocument PassPort
+                    //TravelManager.ChangeTravelDocumentBoolValue(passPort,false);    // Changes the PassPort TravelDocuments IsRequired Property to false;
+                }
+                else    // IF Country is in Eu but the CurrentPackingList does not contain a 'PassPort'
+                {
+                    userViewModel.CurrentPackingList.Add(TravelManager.CreatePassPort(false));     // if Country is in EU and if the CurrentPackingList does not already have a 'PassPort', create a new TravelDocument with the 'Name' "PassPort" and the bool 'IsRequired' set to "false";
+                }
+            }
+            else    // IF Country is not in EU
+            {
+                if (TravelManager.DoesPackingListContainPassPort(userViewModel))   // Checks if the CurrentPackingList contains a passPort
+                {
+                    // Cast crashes, Using nested iterations and conditionals instead. Refactor this if possible,  code is not easily readable! 
+                    // TravelDocument passPort = (TravelDocument)_userViewModel.CurrentPackingList.Where(item => item.Name.Equals("PassPort"));    // Gets the TravelDocument PassPort  
+                    // TravelManager.ChangeTravelDocumentBoolValue(passPort, true);    // Changes the PassPort TravelDocuments IsRequired Property to true;
+
+                    foreach (var item in userViewModel.CurrentPackingList)
+                    {
+                        if (item is TravelDocument travelDocument)
+                        {
+                            if (travelDocument.Name.Equals("PassPort"))
+                            {
+                                TravelManager.ChangeTravelDocumentBoolValue(travelDocument, true);
+                            }
+                        }
+                    }
+                }
+                else    // if Country is in Eu but the CurrentPackingList does not contain a 'PassPort'
+                {
+
+                    userViewModel.CurrentPackingList.Add(TravelManager.CreatePassPort(true));     // if Country is not EU and if the CurrentPackingList does not already have a 'PassPort', create a new TravelDocument with the 'Name' "PassPort" and the bool 'IsRequired' set to "true";
+                }
+            }
+        }
+
         // Not in use due to databinding and Itemssource instead
         //public static void DisplayPackingListToListView(Travel travel,ListView lv)
         //{

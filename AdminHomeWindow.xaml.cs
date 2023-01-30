@@ -28,7 +28,7 @@ namespace TravelPal
 
         private void btnTravelDetails_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void btnAboutUs_Click(object sender, RoutedEventArgs e)
@@ -48,7 +48,9 @@ namespace TravelPal
 
         private void btnLogOut_Click(object sender, RoutedEventArgs e)
         {
-
+            UserManager.SignedInAdmin = null;
+            ViewHandler.OpenNewWindow(typeof(MainWindow));
+            this.Close();
         }
 
         private void btnShowUsers_Click(object sender, RoutedEventArgs e)

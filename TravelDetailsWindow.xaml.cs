@@ -37,9 +37,7 @@ namespace TravelPal
            
             DataContext = _userViewModel;
 
-
             TravelManager.DisplayTravelDetailsTextBox(travel, tbxTravelInfo);
-            //TravelManager.DisplayPackingListToListView(travel, lvTravelPackList);
         }
 
         private void btnEditTravel_Click(object sender, RoutedEventArgs e)
@@ -66,9 +64,8 @@ namespace TravelPal
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            HomeWindow homeWin = new();
-            homeWin.Show();
-            this.Close();
+            // Returns to HomeWindow and Close this Window
+            ViewHandler.OpenHomeWindowCloseThis(this);
         }
 
         private void lvTravelSelected_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -77,7 +74,7 @@ namespace TravelPal
 
             UserManager.SignedInUser.UpdateUserTravel(_travel);
             TravelManager.DisplayTravelDetailsTextBox(_travel,tbxTravelInfo);
-            //TravelManager.DisplayPackingListToListView(_travel,lvTravelPackList);
+
         }
     }
 }

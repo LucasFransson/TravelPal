@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,182 +26,121 @@ namespace TravelPal
     {
 
         UserViewModel _userViewModel;
-        Color _highlightedBlueColor = (Color)ColorConverter.ConvertFromString("#FF91E4E9");
-        Color _defaultWhiteColor = (Color)ColorConverter.ConvertFromString("#FFCCD3D4");
+
+        // Moved colors to ViewHandler class 
+        // Color _highlightedBlueColor = (Color)ColorConverter.ConvertFromString("#FF91E4E9");
+        // Color _defaultWhiteColor = (Color)ColorConverter.ConvertFromString("#FFCCD3D4");
         public UserDetailsWindow(UserViewModel userViewModel)
         {
             InitializeComponent();
+
             _userViewModel = userViewModel;
             DataContext = _userViewModel;
-
-            //tbxFirstName.Text = UserManager.SignedInUser.FirstName;
-            //tbxLastName.Text = UserManager.SignedInUser.LastName;
-            //tbxUsername.Text = UserManager.SignedInUser.UserName;
-            //tbxLocation.Text = UserManager.SignedInUser.Location.ToString();
-            //tbxFirstName.Text = UserManager.SignedInUser.FirstName;
 
             cboLocation.ItemsSource = Enum.GetNames(typeof(EUCountries));
         }
 
+        private void btnLastNameSave_Click(object sender, RoutedEventArgs e)
+        {
+            UserManager.SignedInUser.LastName = tbxLastName.Text;
+            btnLastNameSave.Visibility= Visibility.Collapsed;
+        }
+
+        private void btnFirstNameSave_Click(object sender, RoutedEventArgs e)
+        {
+            UserManager.SignedInUser.FirstName = tbxFirstName.Text;
+            btnFirstNameSave.Visibility= Visibility.Collapsed;
+        }
+
+        private void btnUserNameSave_Click(object sender, RoutedEventArgs e)
+        {
+            UserManager.SignedInUser.UserName = tbxUsername.Text;
+            btnUserNameSave.Visibility= Visibility.Collapsed;
+        }
+        private void btnCountrySave_Click(object sender, RoutedEventArgs e)
+        {
+            UserManager.SignedInUser.Location=UserManager.ParseStringToCountryEnum(cboLocation.SelectedItem.ToString());
+            cboLocation.Visibility= Visibility.Collapsed;    // Hides the combobox after saving the new country location
+            btnCountrySave.Visibility= Visibility.Collapsed;
+         
+        }
+
+        private void btnSavePassword_Click(object sender, RoutedEventArgs e)
+        {
+            UserManager.SignedInUser.Password = tbxNewPassword.Text;
+            ToggleInputElementsOff();
+        }
+
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            HomeWindow homeWin = new();
-            homeWin.Show();
-            this.Close();
-        }
-        private void btnSetNewInfo_Click(object sender, RoutedEventArgs e)
-        {
-            //switch (lblChangeInfo.Content)
-            //{
-            //    case "Change Username":
-            //        {
-            //            if (userManager.ValidateUserName(tbxNewInfoOne.Text) && (userManager.CheckUsernameRequirements(tbxNewInfoOne.Text)))
-            //            {
-            //                UserManager.ChangeUsername(user, tbxNewInfoOne.Text);
-            //                MessageBox.Show("Username Successfully Changed!");
-            //                ToggleInputElementsOff();
-            //                break;
-            //            }
-            //            MessageBox.Show("An User with that username already exists!");
-            //            break;
-            //        }
-            //    case "Change First Name":
-            //        {
-            //            UserManager.ChangeFirstName(user, tbxNewInfoOne.Text);
-            //            MessageBox.Show("First Name Successfully Changed!");
-            //            ToggleInputElementsOff();
-            //            break;
-            //        }
-            //    case "Change Last Name":
-            //        {
-            //            UserManager.ChangeLastName(user, tbxNewInfoOne.Text);
-            //            MessageBox.Show("Last Name Successfully Changed!");
-            //            ToggleInputElementsOff();
-            //            break;
-            //        }
-            //    case "Change Location":
-            //        {
-            //            UserManager.ChangeLocation(user, cboLocation.SelectedItem.ToString());
-            //            MessageBox.Show("Location Successfully Changed!");
-            //            ToggleInputElementsComboboxOff();
-            //            break;
-            //        }
-            //    case "Change Password":
-            //        {
-            //            if (userManager.CheckPasswordRequirements(tbxNewInfoOne.Text))
-            //            {
-            //                UserManager.ChangePassword(user, tbxNewInfoOne.Text);
-            //                MessageBox.Show("Password Successfully Changed!");
-            //                ToggleInputElementsOff();
-
-            //                break;
-            //            }
-            //            else
-            //            {
-            //                MessageBox.Show("Password does not meet the requirements. Password needs to be atleast 5 characters long.");
-            //                break;
-            //            }
-            //        }
-            //    default:
-            //        {
-            //            MessageBox.Show("Invalid Input");
-            //            ToggleInputElementsOff();
-            //            break;
-            //        }
-            //}
-        }
-
-        private void btnChangeUsername_Click(object sender, RoutedEventArgs e)
-        {
-            lblUsername.Foreground = new SolidColorBrush(_highlightedBlueColor);
-            lblFirstName.Foreground = new SolidColorBrush(_defaultWhiteColor);
-            lblLastName.Foreground = new SolidColorBrush(_defaultWhiteColor);
-            tbxUsername.IsReadOnly = false;
-            tbxFirstName.IsReadOnly = true;
-            tbxLastName.IsReadOnly = true;
-
-            //lblChangeInfo.Content = "Change Username";
-            //lblChangeInfo.Visibility = Visibility.Visible;
-            //ToggleInputElementsOn();
-        }
-
-        private void btnChangeFirstName_Click(object sender, RoutedEventArgs e)
-        {
-            lblUsername.Foreground = new SolidColorBrush(_defaultWhiteColor);
-            lblFirstName.Foreground = new SolidColorBrush(_highlightedBlueColor);
-            lblLastName.Foreground = new SolidColorBrush(_defaultWhiteColor);
-            tbxUsername.IsReadOnly = true;
-            tbxFirstName.IsReadOnly = false;
-            tbxLastName.IsReadOnly = true;
-
-            //lblChangeInfo.Content = "Change First Name";
-            //ToggleInputElementsOn();
-        }
-
-        private void btnChangeLastName_Click(object sender, RoutedEventArgs e)
-        {
-            lblUsername.Foreground = new SolidColorBrush(_defaultWhiteColor);
-            lblFirstName.Foreground = new SolidColorBrush(_defaultWhiteColor);
-            lblLastName.Foreground = new SolidColorBrush(_highlightedBlueColor);
-            tbxUsername.IsReadOnly = true;
-            tbxFirstName.IsReadOnly = true;
-            tbxLastName.IsReadOnly = false;
-            //lblChangeInfo.Content = "Change Last Name";
-            //ToggleInputElementsOn();
-        }
-
-        private void btnChangeLocation_Click(object sender, RoutedEventArgs e)
-        {
-            cboLocation.Visibility = Visibility.Visible;
-            //lblChangeInfo.Content = "Change Location";
-            //ToggleInputElementsComboboxOn();
+            // Returns to HomeWindow and Close this Window
+            ViewHandler.OpenHomeWindowCloseThis(this);
         }
 
         private void btnChangePassword_Click(object sender, RoutedEventArgs e)
         {
-            //lblChangeInfo.Content = "Change Password";
-            //ToggleInputElementsOn();
+            //ToggleInputElementsComboboxOff();    // Collapses the Elements Connected to Change Location
+            ToggleInputElementsOn();     // Enables Elements Connected to Change Password. Must be in this order since both use the same button
         }
-
-
-
-        // ViewModel Methods => Refactore
-        public void ToggleInputElementsComboboxOff()
+        private void btnChangeLocation_Click(object sender, RoutedEventArgs e)
         {
-            cboLocation.Visibility = Visibility.Collapsed;
-            btnSetNewInfo.Visibility = Visibility.Collapsed;
+
+            ViewHandler.ChangeNViewElementsForeground<FrameworkElement>(ViewHandler.highlightedBlueColor, btnChangeLocation, lblCountry);
+            ViewHandler.ChangeNViewElementsForeground<FrameworkElement>(ViewHandler.defaultWhiteColor,btnChangeUserName, btnChangeFirstName, btnChangeLastName,lblUserName, lblFirstName, lblLastName);
+     
+            //ToggleInputElementsOff();     // Collapses the Elements Connected to Change Password
+            ToggleInputElementsComboboxOn();     // Enables Elements Connected to Change Location
+
         }
 
-        public void ToggleInputElementsComboboxOn()
+        private void btnChangeUserName_Click(object sender, RoutedEventArgs e)
         {
-            cboLocation.Visibility = Visibility.Visible;
-            btnSetNewInfo.Visibility = Visibility.Visible;
+
+            ViewHandler.ChangeNViewElementsForeground<FrameworkElement>(ViewHandler.highlightedBlueColor, btnChangeUserName, lblUserName);
+            ViewHandler.ChangeNViewElementsForeground<FrameworkElement>(ViewHandler.defaultWhiteColor,btnChangeFirstName,btnChangeLastName,btnChangeLocation,lblFirstName,lblLastName,lblCountry);
+
+            tbxUsername.IsReadOnly = false;
+            tbxFirstName.IsReadOnly = true;
+            tbxLastName.IsReadOnly = true;
+
+            // Second Refactoring
+            //ViewHandler.ChangeNViewElementsForeground(ViewHandler.highlightedBlueColor,lblUsername);
+            //ViewHandler.ChangeNViewElementsForeground(ViewHandler.defaultWhiteColor, lblFirstName,lblLastName);
+
+            // First Refactoring
+            //ViewHandler.ChangeViewElementForeground(lblUsername, ViewHandler.highlightedBlueColor);
+
+            // Init
+            //lblUsername.Foreground = new SolidColorBrush(_highlightedBlueColor);
+            //lblFirstName.Foreground = new SolidColorBrush(_defaultWhiteColor);
+            //lblLastName.Foreground = new SolidColorBrush(_defaultWhiteColor);
         }
 
-        public void ToggleInputElementsOff()
+        private void btnChangeFirstName_Click(object sender, RoutedEventArgs e)
         {
-            tbxNewInfoOne.Visibility = Visibility.Collapsed;
-            tbxNewInfoTwo.Visibility = Visibility.Collapsed;
-            lblPassword.Visibility = Visibility.Collapsed;
-            btnSetNewInfo.Visibility = Visibility.Collapsed;
+            ViewHandler.ChangeNViewElementsForeground<FrameworkElement>(ViewHandler.highlightedBlueColor, btnChangeFirstName, lblFirstName);
+            ViewHandler.ChangeNViewElementsForeground<FrameworkElement>(ViewHandler.defaultWhiteColor,btnChangeUserName,btnChangeLastName,btnChangeLocation,lblUserName,lblLastName,lblCountry);
+
+            tbxUsername.IsReadOnly = true;
+            tbxFirstName.IsReadOnly = false;
+            tbxLastName.IsReadOnly = true;
         }
 
-        public void ToggleInputElementsOn()
+        private void btnChangeLastName_Click(object sender, RoutedEventArgs e)
         {
-            tbxNewInfoOne.Visibility = Visibility.Visible;
-            tbxNewInfoTwo.Visibility = Visibility.Visible;
-            lblPassword.Visibility = Visibility.Visible;
-            btnSetNewInfo.Visibility = Visibility.Visible;
+            ViewHandler.ChangeNViewElementsForeground<FrameworkElement>(ViewHandler.highlightedBlueColor,btnChangeLastName, lblLastName);
+            ViewHandler.ChangeNViewElementsForeground<FrameworkElement>(ViewHandler.defaultWhiteColor,btnChangeUserName,btnChangeFirstName,btnChangeLocation,lblUserName,lblFirstName,lblCountry);
+
+            tbxUsername.IsReadOnly = true;
+            tbxFirstName.IsReadOnly = true;
+            tbxLastName.IsReadOnly = false;
+            
         }
 
-
-
-
-
-
-
-
-
+        private void cboLocation_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            btnCountrySave.Visibility = Visibility.Visible;
+        }
 
         private void tbxUsername_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -208,11 +148,6 @@ namespace TravelPal
             {
                 btnUserNameSave.Visibility = Visibility.Visible;
             }
-        }
-
-        private void tbxUsername_LostFocus(object sender, RoutedEventArgs e)
-        {
-            btnUserNameSave.Visibility = Visibility.Collapsed;
         }
 
         private void tbxFirstName_GotFocus(object sender, RoutedEventArgs e)
@@ -223,10 +158,6 @@ namespace TravelPal
             }
         }
 
-        private void tbxFirstName_LostFocus(object sender, RoutedEventArgs e)
-        {
-            btnFirstNameSave.Visibility = Visibility.Collapsed;
-        }
 
         private void tbxLastName_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -236,24 +167,32 @@ namespace TravelPal
             }
         }
 
-        private void tbxLastName_LostFocus(object sender, RoutedEventArgs e)
+
+        // View Methods => Refactor to ViewHandler 
+        public void ToggleInputElementsComboboxOff()    // This Method was creates when I had a completely different layout for changing User Settings, this is safe to remove and replace with the line of code that's inside the method from where it's called
         {
-            btnLastNameSave.Visibility = Visibility.Collapsed;
+            cboLocation.Visibility = Visibility.Collapsed;
         }
 
-        private void btnLastNameSave_Click(object sender, RoutedEventArgs e)
+        public void ToggleInputElementsComboboxOn()     // This Method was creates when I had a completely different layout for changing User Settings, this is safe to remove and replace with the line of code that's inside the method from where it's called
         {
-
+            cboLocation.Visibility = Visibility.Visible;
         }
 
-        private void btnFirstNameSave_Click(object sender, RoutedEventArgs e)
+        public void ToggleInputElementsOff()
         {
-
+            tbxNewPassword.Visibility = Visibility.Collapsed;
+            lblNewPassword.Visibility = Visibility.Collapsed;
+            btnSavePassword.Visibility = Visibility.Collapsed;
         }
 
-        private void btnUserNameSave_Click(object sender, RoutedEventArgs e)
+        public void ToggleInputElementsOn()
         {
-
+            tbxNewPassword.Visibility = Visibility.Visible;
+            lblNewPassword.Visibility = Visibility.Visible;
+            btnSavePassword.Visibility = Visibility.Visible;
         }
+
+
     }
 }

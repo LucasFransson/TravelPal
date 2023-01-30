@@ -72,20 +72,20 @@ Title="Account Settings" Height="768" Width="1024" WindowStartupLocation="Center
                HorizontalAlignment="Center"
             />
         
-        <Label x:Name="lblChangeInfo"
+        <!--<Label x:Name="lblChangeInfo"
                Content="Change userName"
                Grid.Row="2"
-               Grid.Column="7"
+               Grid.Column="4"
                Grid.ColumnSpan="3"
                FontSize="22"
                FontWeight="Medium"
                VerticalAlignment="Bottom"
                HorizontalAlignment="Center"
                Margin="0,0,0,10"
-               Visibility="Collapsed"
-               />
+               
+               />-->
 
-        <Label x:Name="lblUsername"
+        <Label x:Name="lblUserName"
                Content="User Name"
                Grid.Row="2"
                Grid.Column="2" 
@@ -118,19 +118,22 @@ Title="Account Settings" Height="768" Width="1024" WindowStartupLocation="Center
                VerticalAlignment="Bottom"
                />
 
-        <Label x:Name="lblPassword"  
-               Content="Password"
-               Grid.Row="4"
+        <!--Visibility--> 
+        <Label x:Name="lblNewPassword"  
+               Content="New Password"
+               Grid.Row="6"
                Grid.Column="5" 
                Foreground="#FFC4CAEC"
                VerticalAlignment="Bottom"
                Visibility="Collapsed"
                
-               />
+        />
+
+      
 
 
         <TextBox x:Name="tbxUsername"
-                 Text="{Binding User.UserName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding User.UserName,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Grid.Row="3"
                  Grid.Column="2"
                  FontSize="22"
@@ -138,12 +141,12 @@ Title="Account Settings" Height="768" Width="1024" WindowStartupLocation="Center
                  VerticalContentAlignment="Center"
                  IsReadOnly="True"
                  GotFocus="tbxUsername_GotFocus"
-                 LostFocus="tbxUsername_LostFocus"
+     
                
                  />
         
         <TextBox x:Name="tbxFirstName"
-                 Text="{Binding User.FirstName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding User.FirstName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
                  Grid.Row="5"
                  Grid.Column="2"
                  FontSize="22"
@@ -151,11 +154,11 @@ Title="Account Settings" Height="768" Width="1024" WindowStartupLocation="Center
                  VerticalContentAlignment="Center"
                  IsReadOnly="True"
                  GotFocus="tbxFirstName_GotFocus"
-                 LostFocus="tbxFirstName_LostFocus"
+            
                  />
         
         <TextBox x:Name="tbxLastName"
-                 Text="{Binding User.LastName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding User.LastName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" 
                  Grid.Row="7"
                  Grid.Column="2"
                  FontSize="22"
@@ -163,7 +166,7 @@ Title="Account Settings" Height="768" Width="1024" WindowStartupLocation="Center
                  VerticalContentAlignment="Center"
                  IsReadOnly="True"
                  GotFocus="tbxLastName_GotFocus"
-                 LostFocus="tbxLastName_LostFocus"
+              
             />
         
         <TextBox x:Name="tbxLocation" 
@@ -175,25 +178,25 @@ Title="Account Settings" Height="768" Width="1024" WindowStartupLocation="Center
                  VerticalContentAlignment="Center"    
                  IsReadOnly="True"
             />
-        
-        <TextBox x:Name="tbxNewInfoOne"
-                 Grid.Row="3"
-                 Grid.Column="5"
-                 Visibility="Collapsed" 
-            />
-        
-        <TextBox x:Name="tbxNewInfoTwo"
-                 Grid.Row="5"
-                 Grid.Column="5"
-                 Visibility="Collapsed" 
-            />
 
+        <!--Visibility-->
+        <TextBox x:Name="tbxNewPassword"
+                 Grid.Row="7"
+                 Grid.Column="5"
+                 Visibility="Collapsed"
+
+            />
+        <!--Visibility-->
         <ComboBox x:Name="cboLocation"
-                  Grid.Row="5"
-                  Grid.Column="5"
+                  Grid.Row="9"
+                  Grid.Column="2"
                   Visibility="Collapsed" 
+                  SelectionChanged="cboLocation_SelectionChanged"
+                  SelectedItem="{Binding User.Location,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+         
                   />
 
+        <!--Visibility-->
         <Button x:Name="btnUserNameSave"      
                 Content="✓"
                 Grid.Row="3"
@@ -221,7 +224,7 @@ Title="Account Settings" Height="768" Width="1024" WindowStartupLocation="Center
                 </LinearGradientBrush>
             </Button.Foreground>
         </Button>
-
+        <!--Visibility-->
         <Button x:Name="btnFirstNameSave"      
                 Content="✓"
                 Grid.Row="5"
@@ -249,7 +252,7 @@ Title="Account Settings" Height="768" Width="1024" WindowStartupLocation="Center
                 </LinearGradientBrush>
             </Button.Foreground>
         </Button>
-
+        <!--Visibility-->
         <Button x:Name="btnLastNameSave"      
                 Content="✓"
                 Grid.Row="7"
@@ -278,16 +281,46 @@ Title="Account Settings" Height="768" Width="1024" WindowStartupLocation="Center
             </Button.Foreground>
         </Button>
 
-        
-        
-        <Button x:Name="btnSetNewInfo"
-                Grid.Row="7"
+        <!--Visibility-->
+        <Button x:Name="btnCountrySave"      
+                Content="✓"
+                Grid.Row="9"
+                Grid.Column="3"
+                FontSize="40"
+                FontWeight="Black"
+                FontFamily="Arial"
+                Background="Transparent"
+                Height="50"
+                Width="50"
+                HorizontalAlignment="Left"
+                Click="btnCountrySave_Click"
+                Visibility="Collapsed"
+                >
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter
+                        Property="CornerRadius" Value="10" />
+                </Style>
+            </Button.Resources>
+            <Button.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Button.Foreground>
+        </Button>
+
+        <!--Visibility-->
+        <Button x:Name="btnSavePassword"
+                Grid.Row="9"
                 Grid.Column="5"
                 Content="Confirm"
-                FontSize="19"
+                FontSize="14"
                 FontWeight="DemiBold"
-                Visibility="Collapsed" 
-                Click="btnSetNewInfo_Click"
+                Height="30"
+                Width="80"
+                Click="btnSavePassword_Click"
+                Visibility="Collapsed"
                 >
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
@@ -321,14 +354,14 @@ Title="Account Settings" Height="768" Width="1024" WindowStartupLocation="Center
         </Button>
 
 
-        <Button x:Name="btnChangeUsername"
+        <Button x:Name="btnChangeUserName"
                 Content="Change"
                 Grid.Row="4"
                 Grid.Column="2"
                 Background="{x:Null}"
                 VerticalAlignment="Top"
                 Foreground="#FFCCD3D4"
-                Click="btnChangeUsername_Click"
+                Click="btnChangeUserName_Click"
                 />
         
         <Button x:Name="btnChangeFirstName"
@@ -365,7 +398,8 @@ Title="Account Settings" Height="768" Width="1024" WindowStartupLocation="Center
                 Content="Change Password"
                 Grid.Row="10"
                 Grid.Column="5"
-                Click="btnChangePassword_Click" Background="{x:Null}"
+                Background="{x:Null}"
+                Click="btnChangePassword_Click" 
                 >
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
