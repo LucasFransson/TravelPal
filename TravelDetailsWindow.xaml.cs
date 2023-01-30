@@ -70,11 +70,18 @@ namespace TravelPal
 
         private void lvTravelSelected_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _travel = (Travel)lvTravelSelected.SelectedItem;    // Changes the Travel object to the newly selected Travel object
-
-            UserManager.SignedInUser.UpdateUserTravel(_travel);
-            TravelManager.DisplayTravelDetailsTextBox(_travel,tbxTravelInfo);
-
+            if (lvTravelSelected.SelectedItem != null)
+            {
+                _travel = (Travel)lvTravelSelected.SelectedItem;    // Changes the Travel object to the newly selected Travel object
+                lblSelectedTravel.Content = _travel.Destination;
+                UserManager.SignedInUser.UpdateUserTravel(_travel);
+                TravelManager.DisplayTravelDetailsTextBox(_travel, tbxTravelInfo);
+            }
+            else
+            {
+                tbxTravelInfo.Text = string.Empty;    // If no travel object is selected set the travel info textbox to null;
+                lblSelectedTravel.Content = string.Empty; 
+            }
         }
     }
 }

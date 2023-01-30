@@ -399,6 +399,7 @@ Title="Account Settings" Height="768" Width="1024" WindowStartupLocation="Center
                 Grid.Row="10"
                 Grid.Column="5"
                 Background="{x:Null}"
+                BorderThickness="0"
                 Click="btnChangePassword_Click" 
                 >
             <Button.Resources>
@@ -409,7 +410,7 @@ Title="Account Settings" Height="768" Width="1024" WindowStartupLocation="Center
             </Button.Resources>
             <Button.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF00B4DB" Offset="1" />
                     <GradientStop Color="#FF3CADB5" />
                 </LinearGradientBrush>
             </Button.Foreground>

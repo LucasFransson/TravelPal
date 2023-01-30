@@ -68,12 +68,12 @@ namespace TravelPal
         }
         private void btnShowAllTrips_Click(object sender, RoutedEventArgs e)
         {
-
+            UserManager.SignedInAdmin.ShowAllTrips(lvDisplay);
         }
 
         private void btnShowAllVacations_Click(object sender, RoutedEventArgs e)
         {
-
+            UserManager.SignedInAdmin.ShowAllVacations(lvDisplay);
         }
         private void btnRemoveUser_Click(object sender, RoutedEventArgs e)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography.Pkcs;
 using System.Text;
@@ -42,6 +43,7 @@ namespace TravelPal
             if (lvBookedTravels.SelectedItem != null)   // Checks if an item (Travel object) in the listview is selected
             {
                 UserManager.SignedInUser.travels.Remove(lvBookedTravels.SelectedItem as Travel);    // Casts the Selected ListViewItem to a Travel object and Removes it from the Signed in Users <Travel> List
+                MessageBox.Show($"You have removed the selected Travel Plan! ", "Travel Plan Removed");
             }
             else { MessageBox.Show("You must select a Travel Plan to remove","Error: No Travel Plan Selected"); }
         }

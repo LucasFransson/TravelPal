@@ -15,8 +15,9 @@ namespace TravelPal.Managers
     public static class ViewHandler
     {
         public static Color highlightedBlueColor = (Color)ColorConverter.ConvertFromString("#FF91E4E9");
+        public static Color highlightedLightBlueColor = (Color)ColorConverter.ConvertFromString("#FFA9D4D9");
         public static Color defaultWhiteColor = (Color)ColorConverter.ConvertFromString("#FFCCD3D4");
-
+        //public static Color pureWhiteColor = (Color)ColorConverter.ConvertFromString("##FFFFFFFF");
         // Change a generic View Elements (Derived from Control) Foreground to a new color
         public static void ChangeViewElementForeground<T>(T element, Color color) where T : FrameworkElement
         {
@@ -34,6 +35,26 @@ namespace TravelPal.Managers
                 if (element is Control control)
                 {
                     control.Foreground = new SolidColorBrush(color);    // Changes the ViewElements Foreground to a new color
+                }
+            }
+        }
+
+        public static void ChangeNTextBoxesBackground(Color color, params TextBox[] elements)
+        {
+            foreach (TextBox textBox in elements)     // Iterates through the input parameters 
+            {
+                textBox.Background = new SolidColorBrush(color);    // Changes the ViewElements Foreground to a new color
+            }
+        }
+
+        //Change several generic ViewElements(Derived from Control) Foregrounds to a new color
+        public static void ChangeNTViewElementsBackground<T>(Color color, params T[] elements) where T : FrameworkElement
+        {
+            foreach (T element in elements)     // Iterates through the input parameters 
+            {
+                if (element is Control control)
+                {
+                    control.Background = new SolidColorBrush(color);    // Changes the ViewElements Foreground to a new color
                 }
             }
         }
