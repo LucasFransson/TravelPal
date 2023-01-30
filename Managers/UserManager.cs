@@ -15,13 +15,20 @@ namespace TravelPal.Managers
     public static class UserManager
     {
         public static List<IUser> users = new();
+       
         public static User? SignedInUser;
-
+        public static Admin? SignedInAdmin;
 
         // Create and return an User object
         public static User CreateUser(string firstName, string lastName, string userName, string password, Countries country)
         {
             return new User(firstName,lastName,userName,password,country);
+        }
+
+        // Create and return an Admin object
+        public static Admin CreateAdmin(string firstName, string lastName, string userName, string password, Countries country)
+        {
+            return new Admin(firstName,lastName,userName,password,country); 
         }
 
         // Adds an IUser object to the static "users" list in the "UserManager" class
@@ -43,6 +50,27 @@ namespace TravelPal.Managers
             return false;
         }
 
+        public static void LogInIUser(TextBox tbxUserName,Window LogInWindow)
+        {
+            IUser user = UserManager.FindIUserByUsername(tbxUserName.Text);  // Safe to use since this code only is reachable if the Username input matches with an existing IUser object
+            if(user is User)
+            {
+                UserManager.SignedInUser = (User)UserManager.FindIUserByUsername(tbxUserName.Text); 
+                TravelManager.LoadTestTravels();    // Creates and sets an vacation and a trip object to the user for testing purposes 
+                HomeWindow homeWin = new();
+                homeWin.Show();
+                LogInWindow.Close();
+            }
+            else if(user is Admin)
+            {
+                UserManager.SignedInAdmin= (Admin)user;
+                UserManager.SignedInUser = (User)UserManager.FindIUserByUsername("Gandalf");
+                TravelManager.LoadTestTravels();
+                AdminHomeWindow adminHomeWin = new();
+                adminHomeWin.Show();
+                LogInWindow.Close();
+            }
+        }
         // Checks if the username is available
         public static bool CheckUserNameAvailability(string inputUsername)
         {
@@ -65,6 +93,9 @@ namespace TravelPal.Managers
 
             User newUser = new("Lucas", "Fransson", "Lucas", "password", Countries.Sweden);
             users.Add(newUser);
+
+            Admin admin = new("Alan", "Turing", "admin", "admin", Countries.UnitedKingdom);
+            users.Add(admin);
         }
 
         // Method for logging out the current signed in user, closing the current open window and opening the start window

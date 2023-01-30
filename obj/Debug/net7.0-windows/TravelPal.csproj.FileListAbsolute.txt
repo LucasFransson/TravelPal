@@ -29,3 +29,5 @@ C:\Users\lucas\source\repos\TravelPal\TravelPal\obj\Debug\net7.0-windows\TravelD
 C:\Users\lucas\source\repos\TravelPal\TravelPal\obj\Debug\net7.0-windows\TravelDetailsWindow.baml
 C:\Users\lucas\source\repos\TravelPal\TravelPal\obj\Debug\net7.0-windows\UserDetailsWindow.g.cs
 C:\Users\lucas\source\repos\TravelPal\TravelPal\obj\Debug\net7.0-windows\UserDetailsWindow.baml
+C:\Users\lucas\source\repos\TravelPal\TravelPal\obj\Debug\net7.0-windows\AdminHomeWindow.g.cs
+C:\Users\lucas\source\repos\TravelPal\TravelPal\obj\Debug\net7.0-windows\AdminHomeWindow.baml

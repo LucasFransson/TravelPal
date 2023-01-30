@@ -10,6 +10,9 @@
     <Compile Update="AddTravelWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="AdminHomeWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="HomeWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -25,6 +28,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="AddTravelWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AdminHomeWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="HomeWindow.xaml">

@@ -37,11 +37,12 @@ namespace TravelPal
                                                                       tbxUserName.Text,
                                                                       pbxPassword.Password)) // If an IUser object is found and the username and password matches with that IUser object return true else return false
             {
-                UserManager.SignedInUser = (User)UserManager.FindIUserByUsername(tbxUserName.Text); // Safe to use since this code only is reachable if the Username input matches with an existing IUser object
-                TravelManager.LoadTestTravels();    // Creates and sets an vacation and a trip object to the user for testing purposes 
-                HomeWindow homeWin = new();
-                homeWin.Show();
-                this.Close();
+                UserManager.LogInIUser(tbxUserName, this);  // Logs in Users to "HomeWindow" and Admins to "AdminHomeWindow"
+                //UserManager.SignedInUser = (User)UserManager.FindIUserByUsername(tbxUserName.Text); // Safe to use since this code only is reachable if the Username input matches with an existing IUser object
+                //TravelManager.LoadTestTravels();    // Creates and sets an vacation and a trip object to the user for testing purposes 
+                //HomeWindow homeWin = new();
+                //homeWin.Show();
+                //this.Close();
             }
             else { MessageBox.Show("Username or Password was not correct!", "Wrong Input"); }   // Display an Error Message 
         }

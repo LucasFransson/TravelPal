@@ -29,7 +29,7 @@ namespace TravelPal
         UserViewModel _userViewModel;
 
         private TravelTypes _travelType = TravelTypes.None;
-        public AddTravelWindow(UserViewModel userViewModel)
+        public AddTravelWindow(UserViewModel userViewModel)     // Constructor from opening from "Create new Travel"
         {
             InitializeComponent();
 
