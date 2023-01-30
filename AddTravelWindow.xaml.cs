@@ -91,14 +91,19 @@ namespace TravelPal
         {
 
             bool isNrOk = int.TryParse(txtTravelerNr.Text, out int number);     // Tries to parse the text from tbxTravelerNr to an integer
-            if (!isNrOk )   // If the parse failed
+            if (!isNrOk)   // If the parse failed
             {
                 MessageBox.Show("Please only enter numbers into the \"Number of Travellers\" Field.", "Wrong Input");
                 return; // If the textbox was not parsable to an int "return" to stop the rest of code to execute.
-            } 
+            }
 
+            else if (!TravelManager.IsStartDateBeforeEndDate(dtpStart.SelectedDate, dtpEnd.SelectedDate))
+            {
+                MessageBox.Show("The Start Date must be before the End Date.", "Wrong Input");
+                return; // If the textbox was not parsable to an int "return" to stop the rest of code to execute. 
+            }
 
-            if (_travelType == TravelTypes.Vacation)
+                if (_travelType == TravelTypes.Vacation)
             {
                 bool isAllInclusive = false; 
                 if(rbtnAllInclusive.IsChecked== true) { isAllInclusive = true; }
@@ -111,6 +116,7 @@ namespace TravelPal
                                                      isAllInclusive);
 
                 newVacation.PackingList = _userViewModel.CurrentPackingList;    // Sets the objects List<IpackingItem> to this windows List<IPackingItem>
+                newVacation.CreatedByUserID = UserManager.SignedInUser.UserID;  // Sets the Vacation objects "CreatedByUserID" to the same id as "SignedInUser.UserID"
                 UserManager.SignedInUser.travels.Add(newVacation);
                 MessageBox.Show("You have succesfully added a Vacation Plan!", "Travel Plan Added");
             }
@@ -125,6 +131,7 @@ namespace TravelPal
                                              TravelManager.ParseStringToTripTypeEnum(cboTripType.SelectedItem.ToString()));
 
                 newTrip.PackingList = _userViewModel.CurrentPackingList;    // Sets the objects List<IpackingItem> to this windows List<IPackingItem>
+                newTrip.CreatedByUserID = UserManager.SignedInUser.UserID;  // Sets the Trip objects "CreatedByUserID" to the same id as "SignedInUser.UserID"
                 UserManager.SignedInUser.travels.Add(newTrip);
                 MessageBox.Show("You have succesfully added a Trip Plan!", "Travel Plan Added");
             }

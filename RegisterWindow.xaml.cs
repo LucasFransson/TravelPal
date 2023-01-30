@@ -43,6 +43,11 @@ namespace TravelPal
                                                   UserManager.ParseStringToCountryEnum(cboCountry.SelectedItem.ToString())
                                                   );
             UserManager.AddIUserToList(newUser);    // Add a User Object to the UserManagers "users" List
+            MessageBox.Show("You have sucesfully registered!", "Succes");
+
+            MainWindow mainWin = new();
+            mainWin.Show();
+            this.Close();
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)

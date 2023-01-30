@@ -39,6 +39,12 @@ namespace TravelPal.Managers
             return (TripTypes)Enum.Parse(typeof(TripTypes), stringToParse);
         }
 
+        // Checks that Starting Date is the same date as EndDate or before EndDate
+        public static bool IsStartDateBeforeEndDate(DateTime? startDate, DateTime? endDate)
+        {
+            return startDate <= endDate;
+        }
+
 
         // Not in use due to databinding and Itemssource instead
         public static void DisplayPackingListToListView (ObservableCollection<IPackingListItem> list, ListView lv)
@@ -50,7 +56,14 @@ namespace TravelPal.Managers
                     lv.Items.Add(item.GetInfo());
                 }
         }
+        // Creates a travelDocument named "PassPort" and sets true/false depending on parameters
+        public static TravelDocument CreatePassPort(bool isRequired)
+        {
+            return new TravelDocument("PassPort",isRequired);
 
+            //TravelDocument passPort = new("PassPort",true);
+            //return passPort;
+        }
         // Not in use due to databinding and Itemssource instead
         //public static void DisplayPackingListToListView(Travel travel,ListView lv)
         //{
@@ -98,6 +111,8 @@ namespace TravelPal.Managers
         {
             Trip trip = CreateTrip("Ankeborg", Countries.UnitedStates, 1, DateTime.Now, DateTime.Now, TripTypes.Work);
             Vacation vacation = CreateVacation("Mustafar",Countries.Australia,3,DateTime.Now,DateTime.Now,false);
+            trip.CreatedByUserID = UserManager.SignedInUser.UserID;
+            vacation.CreatedByUserID = UserManager.SignedInUser.UserID;
             UserManager.SignedInUser.travels.Add(trip);
             UserManager.SignedInUser.travels.Add(vacation);
         }
@@ -129,6 +144,34 @@ namespace TravelPal.Managers
             {
                 btnSaveTravelInfo.IsEnabled = false;
             }
+        }
+
+        public static void AddLvItemToLv(ListViewItem lvItem, ListView listView)
+        {
+            listView.Items.Add(lvItem);
+        }
+
+        public static ListViewItem CreateListViewItem(Object obj, string objContent)
+        {
+            ListViewItem lvItem = new();
+            lvItem.Tag = obj;
+            lvItem.Content = objContent;
+            return lvItem;
+        }
+        public static Travel GetTravelFromListView(ListView listView)
+        {
+            if (listView.SelectedItem != null)
+            {
+                ListViewItem selectedItem = listView.SelectedItem as ListViewItem;
+                Travel? selectedTravel = selectedItem.Tag as Travel;
+                return selectedTravel;
+            }
+            return null;
+        }
+
+        public static int GenerateGUID()    // Method for generating a GUID
+        {
+            return Guid.NewGuid().GetHashCode();
         }
     }
 }

@@ -127,7 +127,7 @@ namespace TravelPal.Managers
             return users.FirstOrDefault(user => user.UserID == searchUserID);
         }
 
-        public static int GenerateGUID()    // Method for generation a GUID
+        public static int GenerateGUID()    // Method for generating a GUID
         {
             return Guid.NewGuid().GetHashCode();
         }

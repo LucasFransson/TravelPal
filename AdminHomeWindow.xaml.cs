@@ -38,7 +38,7 @@ namespace TravelPal
 
         private void btnRemoveTravel_Click(object sender, RoutedEventArgs e)
         {
-
+            UserManager.SignedInAdmin.RemoveSelectedTravel(lvBookedTravels);
         }
 
         private void btnAccountSettings_Click(object sender, RoutedEventArgs e)

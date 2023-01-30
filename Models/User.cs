@@ -51,7 +51,7 @@ namespace TravelPal.Models
             SetUserID();
 
         }
-        public void SetUserID()
+        private void SetUserID()
         {
             UserID = UserManager.GenerateGUID(); 
         }

@@ -16,7 +16,7 @@ namespace TravelPal.Models
         public string LastName { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
-        public int UserID { get; }
+        public int UserID { get; set; }
         public Countries Location { get; set; }
 
         public Admin(string firstName, string lastName, string username, string password, Countries country)
@@ -26,6 +26,9 @@ namespace TravelPal.Models
             UserName = username;
             Password = password;
             Location = country;
+
+            SetAdminId();
+
         }
 
         public void ShowAllUsers(ListView lvDisplay)
@@ -36,24 +39,48 @@ namespace TravelPal.Models
                 lvDisplay.Items.Add(user.UserName);
             }
         }
+        //public void ShowAllTravels(ListView lvDisplay)
+        //{
+        //    lvDisplay.Items.Clear();
+        //    foreach(var iUser in UserManager.users)
+        //    {
+        //        if (iUser is User user)
+        //        {
+        //            foreach(var travel in user.travels)
+        //            {
+        //                lvDisplay.Items.Add(travel.ToString());
+        //            }
+        //        }
+        //    }
+        //}
+
         public void ShowAllTravels(ListView lvDisplay)
         {
             lvDisplay.Items.Clear();
-            foreach(var iUser in UserManager.users)
+            foreach (var iUser in UserManager.users)
             {
                 if (iUser is User user)
                 {
-                    foreach(var travel in user.travels)
+                    foreach (var travel in user.travels)
                     {
-                        lvDisplay.Items.Add(travel.ToString());
+                        TravelManager.AddLvItemToLv(TravelManager.CreateListViewItem(travel, travel.ToString()),lvDisplay);
                     }
                 }
             }
         }
 
-        public void RemoveSelectedTravel()
+        private void SetAdminId()
         {
-
+            UserID = UserManager.GenerateGUID();
         }
+        public void RemoveSelectedTravel(ListView lv)
+        {
+            Travel travel = TravelManager.GetTravelFromListView(lv);
+            User user = FindUserByUserID(travel.CreatedByUserID);
+            user.travels.Remove(travel);
+        }
+
+        public User FindUserByUserID(int searchUserID) => (User)UserManager.users.Where(u => u.UserID == searchUserID).FirstOrDefault();
+
     }
 }
