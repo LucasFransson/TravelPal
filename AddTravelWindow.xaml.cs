@@ -16,6 +16,8 @@ using TravelPal.Managers;
 using TravelPal.Enums;
 using TravelPal.Interfaces;
 using System.Collections.ObjectModel;
+using TravelPal.ViewModels;
+
 
 namespace TravelPal
 {
@@ -24,13 +26,15 @@ namespace TravelPal
     /// </summary>
     public partial class AddTravelWindow : Window
     {
-
-        private ObservableCollection<IPackingListItem> _packingListItems = new();
+        UserViewModel _userViewModel;
 
         private TravelTypes _travelType = TravelTypes.None;
-        public AddTravelWindow()
+        public AddTravelWindow(UserViewModel userViewModel)
         {
             InitializeComponent();
+
+            _userViewModel = userViewModel;
+            DataContext = _userViewModel;
 
             cboTravelType.Items.Add(Enum.GetName(typeof(TravelTypes), TravelTypes.Vacation));
             cboTravelType.Items.Add(Enum.GetName(typeof(TravelTypes), TravelTypes.Trip));
@@ -40,6 +44,45 @@ namespace TravelPal
             cboTripType.ItemsSource = Enum.GetNames(typeof(TripTypes));    // Sets the combobox itemssource to the TripTypes Enum
             dtpStart.BlackoutDates.AddDatesInPast();    // Blackouts dates that are unavailable 
             dtpEnd.BlackoutDates.AddDatesInPast();
+
+            TravelManager.CheckMandatoryInputForSaving(_travelType, txtDestination, dtpStart, dtpEnd, cboDestinationCountry, txtTravelerNr, btnSaveTravelInfo, cboTripType);
+        }
+
+        public AddTravelWindow(UserViewModel userViewModel,Travel travel)   // Constructor For opening from "Edit Travel" 
+        {
+            InitializeComponent();
+
+            _userViewModel = userViewModel;
+            DataContext = _userViewModel;
+
+            cboTravelType.Items.Add(Enum.GetName(typeof(TravelTypes), TravelTypes.Vacation));
+            cboTravelType.Items.Add(Enum.GetName(typeof(TravelTypes), TravelTypes.Trip));
+
+
+            cboDestinationCountry.ItemsSource = Enum.GetNames(typeof(Countries));     // Sets the combobox itemssource to the Countries Enum
+            cboTripType.ItemsSource = Enum.GetNames(typeof(TripTypes));    // Sets the combobox itemssource to the TripTypes Enum
+            dtpStart.BlackoutDates.AddDatesInPast();    // Blackouts dates that are unavailable 
+            dtpEnd.BlackoutDates.AddDatesInPast();
+
+            txtDestination.Text = travel.Destination;
+            cboDestinationCountry.Text = travel.Country.ToString();
+            //cboDestinationCountry.SelectedItem = travel.Country;
+            txtTravelerNr.Text = travel.NumberOfTravellers.ToString();
+            dtpStart.Text = travel.StartDate.ToString();
+            dtpEnd.Text = travel.EndDate.ToString();
+
+            if (travel is Vacation vacation)
+            {
+                cboTravelType.Text = "Vacation";
+                rbtnAllInclusive.Visibility = Visibility.Hidden;
+                rbtnAllInclusive.Content = vacation.IsAllInClusive;
+            }
+            else if (travel is Trip trip)
+            {
+                cboTravelType.Text = "Trip";
+                cboTripType.Visibility = Visibility.Visible;
+                cboTripType.SelectedItem = trip.Type;
+            }
 
             TravelManager.CheckMandatoryInputForSaving(_travelType, txtDestination, dtpStart, dtpEnd, cboDestinationCountry, txtTravelerNr, btnSaveTravelInfo, cboTripType);
         }
@@ -67,7 +110,7 @@ namespace TravelPal
                                                      dtpEnd.SelectedDate,
                                                      isAllInclusive);
 
-                newVacation.PackingList = _packingListItems;    // Sets the objects List<IpackingItem> to this windows List<IPackingItem>
+                newVacation.PackingList = _userViewModel.CurrentPackingList;    // Sets the objects List<IpackingItem> to this windows List<IPackingItem>
                 UserManager.SignedInUser.travels.Add(newVacation);
                 MessageBox.Show("You have succesfully added a Vacation Plan!", "Travel Plan Added");
             }
@@ -81,7 +124,7 @@ namespace TravelPal
                                              dtpEnd.SelectedDate,
                                              TravelManager.ParseStringToTripTypeEnum(cboTripType.SelectedItem.ToString()));
 
-                newTrip.PackingList = _packingListItems;    // Sets the objects List<IpackingItem> to this windows List<IPackingItem>
+                newTrip.PackingList = _userViewModel.CurrentPackingList;    // Sets the objects List<IpackingItem> to this windows List<IPackingItem>
                 UserManager.SignedInUser.travels.Add(newTrip);
                 MessageBox.Show("You have succesfully added a Trip Plan!", "Travel Plan Added");
             }
@@ -141,6 +184,53 @@ namespace TravelPal
         }
 
 
+        private void cbxIsDocument_Click(object sender, RoutedEventArgs e)
+        {
+            if (cbxIsRequired.Visibility == Visibility.Collapsed)
+            {
+                cbxIsRequired.Visibility = Visibility.Visible;
+                lblQuantity.Visibility = Visibility.Collapsed;
+                tbxQtyInput.Visibility = Visibility.Collapsed;            
+            } 
+            else
+            {
+                cbxIsRequired.Visibility = Visibility.Collapsed;
+                tbxQtyInput.Visibility = Visibility.Visible;
+                lblQuantity.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void btnPackAdd_Click(object sender, RoutedEventArgs e)
+        {
+
+            if(cbxIsDocument.IsChecked== true) // Creating TravelDocument
+            {
+                bool isRequired = false;    // Initialises a bool that will handle the value from cbxIsRequired, sets the starting value to false. 
+                if(cbxIsRequired.IsChecked== true) { isRequired= true; }
+
+                TravelDocument tDoc = new(txtPackingItem.Text,isRequired);
+                _userViewModel.CurrentPackingList.Add(tDoc);
+            }
+            else   // Creating OtherItem
+            {
+                bool isNrOk = int.TryParse(tbxQtyInput.Text, out int number);     // Tries to parse the text from tbxQtyInput to an integer
+                if (!isNrOk || string.IsNullOrEmpty(tbxQtyInput.Text))   // If the parse failed or If input is null or empty stop the method
+                {
+                    MessageBox.Show("You must enter a number in the \"Quantity\" Field.", "Wrong Input");
+                    return; // If the textbox was not parsable to an int "return" to stop the rest of code to execute.
+                }
+                
+                OtherItem oItem = new(txtPackingItem.Text, int.Parse(tbxQtyInput.Text));
+                _userViewModel.CurrentPackingList.Add(oItem);
+            }
+        }
+
+        private void btnPackRemove_Click(object sender, RoutedEventArgs e)
+        {
+            _userViewModel.CurrentPackingList.Remove(lvPackingList.SelectedItem as IPackingListItem);
+        }
+
+
         // Code for checking if input fields are valid
         // There was a lot of work/problem with solving this problem by using the MVVM-pattern for me and the "working" code I ended up with was not good, so I choose to instead just create a method(CheckMandatoryInputForSaving()) that
         // Checks if every mandatory input field isn't empty and then create ...Changed() methods on every related element and then run the CheckMandatoryInputForSaving-method on every single elements ...Changed() Method
@@ -173,66 +263,8 @@ namespace TravelPal
 
         private void cboTripType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
-            TravelManager.CheckMandatoryInputForSaving(_travelType, txtDestination,dtpStart,dtpEnd,cboDestinationCountry,txtTravelerNr,btnSaveTravelInfo,cboTripType);
-        }
 
-        private void cbxIsDocument_Click(object sender, RoutedEventArgs e)
-        {
-            if (cbxIsRequired.Visibility == Visibility.Collapsed)
-            {
-                cbxIsRequired.Visibility = Visibility.Visible;
-                lblQuantity.Visibility = Visibility.Collapsed;
-                tbxQtyInput.Visibility = Visibility.Collapsed;            
-            } 
-            else
-            {
-                cbxIsRequired.Visibility = Visibility.Collapsed;
-                tbxQtyInput.Visibility = Visibility.Visible;
-                lblQuantity.Visibility = Visibility.Visible;
-            }
-        }
-
-        private void btnPackAdd_Click(object sender, RoutedEventArgs e)
-        {
-
-            if(cbxIsDocument.IsChecked== true) // Creating TravelDocument
-            {
-                bool isRequired = false;    // Initialises a bool that will handle the value from cbxIsRequired, sets the starting value to false. 
-                if(cbxIsRequired.IsChecked== true) { isRequired= true; }
-
-                TravelDocument tDoc = new(txtPackingItem.Text,isRequired);
-                _packingListItems.Add(tDoc);
-            }
-            else   // Creating OtherItem
-            {
-                bool isNrOk = int.TryParse(tbxQtyInput.Text, out int number);     // Tries to parse the text from tbxQtyInput to an integer
-                if (!isNrOk || string.IsNullOrEmpty(tbxQtyInput.Text))   // If the parse failed or If input is null or empty stop the method
-                {
-                    MessageBox.Show("You must enter a number in the \"Quantity\" Field.", "Wrong Input");
-                    return; // If the textbox was not parsable to an int "return" to stop the rest of code to execute.
-                }
-                
-                OtherItem oItem = new(txtPackingItem.Text, int.Parse(tbxQtyInput.Text));
-                _packingListItems.Add(oItem);
-                
-            }
-            UpdateLV(lvPackingList);
-        }
-
-        public void UpdateLV(ListView lv)
-        {
-            lv.Items.Clear();
-
-            foreach(var item in _packingListItems) 
-            { 
-                lv.Items.Add(item.GetInfo());
-            }
-        }
-
-        private void btnPackRemove_Click(object sender, RoutedEventArgs e)
-        {
-
+            TravelManager.CheckMandatoryInputForSaving(_travelType, txtDestination, dtpStart, dtpEnd, cboDestinationCountry, txtTravelerNr, btnSaveTravelInfo, cboTripType);
         }
     }
 

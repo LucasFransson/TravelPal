@@ -27,8 +27,14 @@ namespace TravelPal.Models
         public int UserID { get; set; }
 
         public Countries Location { get; set; }
-        public Travel CurrentTravel { get; set; }   // Testing for MVVM / Datacontext
+        //public Travel CurrentTravel { get; set; }   // Testing for MVVM / Datacontext
 
+        private Travel _currentTravel;
+        public Travel CurrentTravel
+        {
+            get { return _currentTravel; }
+            set { _currentTravel = value; OnPropertyChanged("CurrentTravel"); }
+        }
 
         public ObservableCollection <Travel> travels { get; set; } = new();     // Using an "ObservableCollection" instead of a list to gain access to the INotifyPropertyChanged interface 
 

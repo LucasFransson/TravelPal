@@ -44,7 +44,9 @@ namespace TravelPal
 
         private void btnEditTravel_Click(object sender, RoutedEventArgs e)
         {
-
+            AddTravelWindow editTravelWin = new(_userViewModel,_travel);
+            editTravelWin.Show();
+            this.Close();
         }
 
         private void btnRemoveTravel_Click(object sender, RoutedEventArgs e)

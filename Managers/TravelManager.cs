@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using TravelPal.Enums;
+using TravelPal.Interfaces;
 using TravelPal.Models;
 
 namespace TravelPal.Managers
@@ -37,6 +39,17 @@ namespace TravelPal.Managers
             return (TripTypes)Enum.Parse(typeof(TripTypes), stringToParse);
         }
 
+
+        // Not in use due to databinding and Itemssource instead
+        public static void DisplayPackingListToListView (ObservableCollection<IPackingListItem> list, ListView lv)
+        {
+                lv.Items.Clear(); // Clears the listview before adding the content
+
+                foreach (var item in list)
+                {
+                    lv.Items.Add(item.GetInfo());
+                }
+        }
 
         // Not in use due to databinding and Itemssource instead
         //public static void DisplayPackingListToListView(Travel travel,ListView lv)
