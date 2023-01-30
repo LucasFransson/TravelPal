@@ -32,29 +32,40 @@ namespace TravelPal
         {
             if (!UserManager.CheckUserNameAvailability(tbxUserName.Text)) // Checks if the username is taken
             {
-                MessageBox.Show($"The Username {tbxUserName.Text} is not avaialable!");
+                MessageBox.Show($"The Username {tbxUserName.Text} is not avaialable!", "Warning");
                 return;     // Return to stop the rest of this functions code to execute
             }
+            else if (!UserManager.IsNewUserNameAllowed(tbxUserName.Text)) { MessageBox.Show("Your UserName must be atleast 3 characters long!", "Incorrect Information"); return; }
+            else if (!UserManager.IsNewPasswordAllowed(tbxPassword.Text)) { MessageBox.Show("Your Password must be atleast 5 characters long!", "Incorrect Information"); return; }
 
-            User newUser = UserManager.CreateUser(tbxFirstName.Text,    // Create a User Object
-                                                  tbxLastName.Text,
-                                                  tbxUserName.Text,
-                                                  tbxPassword.Text,
-                                                  UserManager.ParseStringToCountryEnum(cboCountry.SelectedItem.ToString())
-                                                  );
-            UserManager.AddIUserToList(newUser);    // Add a User Object to the UserManagers "users" List
-            MessageBox.Show("You have sucesfully registered!", "Succes");
+            else    // This "else" is here just in case the 'return' calls above should fail
+            {
+                User newUser = UserManager.CreateUser(tbxFirstName.Text,    // Create a User Object
+                                                      tbxLastName.Text,
+                                                      tbxUserName.Text,
+                                                      tbxPassword.Text,
+                                                      UserManager.ParseStringToCountryEnum(cboCountry.SelectedItem.ToString())
+                                                      );
+                UserManager.AddIUserToList(newUser);    // Add a User Object to the UserManagers "users" List
+                MessageBox.Show("You have sucesfully registered!", "Succes");
 
-            MainWindow mainWin = new();
-            mainWin.Show();
-            this.Close();
+                ViewHandler.OpenNewWindow(typeof(MainWindow));
+                this.Close();
+
+                //MainWindow mainWin = new();
+                //mainWin.Show();
+                //this.Close();
+            }
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWin = new();
-            mainWin.Show();
+            ViewHandler.OpenNewWindow(typeof(MainWindow));
             this.Close();
+
+            //MainWindow mainWin = new();
+            //mainWin.Show();
+            //this.Close();
         }
     }
 }

@@ -78,5 +78,10 @@ namespace TravelPal.Models
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+        public override string ToString()
+        {
+            return UserName; 
+        }
     }
 }

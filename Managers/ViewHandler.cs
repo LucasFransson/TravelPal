@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Security.Policy;
@@ -65,6 +66,15 @@ namespace TravelPal.Managers
         public static void CloseWindow(Window window)
         {
             window.Close();
+        }
+
+        public static void UpdateListView <T>(ListView lv, ObservableCollection<T> collection)
+        {
+            lv.Items.Clear();
+            foreach(var item in collection)
+            {
+                lv.Items.Add(item.ToString());
+            }
         }
 
     }

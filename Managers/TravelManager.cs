@@ -169,6 +169,8 @@ namespace TravelPal.Managers
         //        }
         //    }
         //}
+
+
         // Displays formated text information about a specific Travel object and displays it in a Textbox
         public static void DisplayTravelDetailsTextBox(Travel travel,TextBox tbx)
         {
@@ -252,9 +254,9 @@ namespace TravelPal.Managers
         }
         public static Travel GetTravelFromListView(ListView listView)
         {
-            if (listView.SelectedItem != null)
+            ListViewItem? selectedItem = listView.SelectedItem as ListViewItem;
+            if (selectedItem != null )
             {
-                ListViewItem selectedItem = listView.SelectedItem as ListViewItem;
                 Travel? selectedTravel = selectedItem.Tag as Travel;
                 return selectedTravel;
             }

@@ -43,23 +43,35 @@ namespace TravelPal
         private void btnLastNameSave_Click(object sender, RoutedEventArgs e)
         {
             UserManager.SignedInUser.LastName = tbxLastName.Text;
+            MessageBox.Show($"You have sucesfully changed your Surname to {UserManager.SignedInUser.LastName}!", "Succes");
             btnLastNameSave.Visibility= Visibility.Collapsed;
         }
 
         private void btnFirstNameSave_Click(object sender, RoutedEventArgs e)
         {
             UserManager.SignedInUser.FirstName = tbxFirstName.Text;
+            MessageBox.Show($"You have sucesfully changed your First Name to {UserManager.SignedInUser.FirstName}!", "Succes");
             btnFirstNameSave.Visibility= Visibility.Collapsed;
         }
 
         private void btnUserNameSave_Click(object sender, RoutedEventArgs e)
         {
-            UserManager.SignedInUser.UserName = tbxUsername.Text;
-            btnUserNameSave.Visibility= Visibility.Collapsed;
+            if (UserManager.IsNewUserNameAllowed(tbxUsername.Text))
+            {
+                UserManager.SignedInUser.UserName = tbxUsername.Text;
+                MessageBox.Show($"You have sucesfully changed your Username to {UserManager.SignedInUser.UserName}!", "Succes");
+                btnUserNameSave.Visibility = Visibility.Collapsed;
+
+            }
+            else
+            {
+                MessageBox.Show("Your UserName must be atleast 3 characters long!", "Incorrect Information");
+            }
         }
         private void btnCountrySave_Click(object sender, RoutedEventArgs e)
         {
             UserManager.SignedInUser.Location=UserManager.ParseStringToCountryEnum(cboLocation.SelectedItem.ToString());
+            MessageBox.Show($"You have sucesfully changed your Country Location to {UserManager.SignedInUser.Location.ToString()}!", "Succes");
             cboLocation.Visibility= Visibility.Collapsed;    // Hides the combobox after saving the new country location
             btnCountrySave.Visibility= Visibility.Collapsed;
          
@@ -67,8 +79,16 @@ namespace TravelPal
 
         private void btnSavePassword_Click(object sender, RoutedEventArgs e)
         {
-            UserManager.SignedInUser.Password = tbxNewPassword.Text;
-            ToggleInputElementsOff();
+            if (UserManager.IsNewPasswordAllowed(tbxNewPassword.Text))
+            {
+                UserManager.SignedInUser.Password = tbxNewPassword.Text;
+                ToggleInputElementsOff();
+            }
+            else
+            {
+
+                MessageBox.Show("Your Password must be atleast 5 characters long!", "Incorrect Information");
+            }
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)

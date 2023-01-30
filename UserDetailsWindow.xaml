@@ -103,7 +103,7 @@ Title="Account Settings" Height="768" Width="1024" WindowStartupLocation="Center
                />
 
         <Label x:Name="lblLastName"
-               Content="Last Name"
+               Content="Surname"
                Grid.Row="6"
                Grid.Column="2" 
                Foreground="#FFC4CAEC"

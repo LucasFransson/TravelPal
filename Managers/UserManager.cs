@@ -71,7 +71,7 @@ namespace TravelPal.Managers
                 LogInWindow.Close();
             }
         }
-        // Checks if the username is available
+        // Checks if the UserName is available
         public static bool CheckUserNameAvailability(string inputUsername)
         {
             if (users.FirstOrDefault(u => u.UserName == inputUsername) == null)
@@ -79,6 +79,25 @@ namespace TravelPal.Managers
                 return true;
             }
             return false;
+        }
+
+        // Checks if the Password is complying with rules
+        public static bool IsNewPasswordAllowed(string newPassword)
+        {
+            if (newPassword.Length < 5)
+            {
+                return false;
+            }
+            return true;
+        }
+        // Checks if the UserName is complying with rules
+        public static bool IsNewUserNameAllowed(string newUserName)
+        {
+            if (newUserName.Length < 3)
+            {
+                return false;
+            }
+            return true;
         }
 
         // Method for populating testing users
