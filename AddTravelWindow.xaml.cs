@@ -77,8 +77,8 @@ namespace TravelPal
             if (travel is Vacation vacation)
             {
                 cboTravelType.Text = "Vacation";
-                rbtnAllInclusive.Visibility = Visibility.Hidden;
-                rbtnAllInclusive.Content = vacation.IsAllInClusive;
+                rbtnAllInclusive.Visibility = Visibility.Visible;
+                rbtnAllInclusive.IsChecked = true;
             }
             else if (travel is Trip trip)
             {
@@ -242,7 +242,11 @@ namespace TravelPal
 
         private void btnPackRemove_Click(object sender, RoutedEventArgs e)
         {
-            _userViewModel.CurrentPackingList.Remove(lvPackingList.SelectedItem as IPackingListItem);
+            if (lvPackingList.SelectedItem != null)
+            {
+                _userViewModel.CurrentPackingList.Remove(lvPackingList.SelectedItem as IPackingListItem);
+            }
+            else { MessageBox.Show("You must select an item from the packing list to remove!", "Error"); }
         }
 
 

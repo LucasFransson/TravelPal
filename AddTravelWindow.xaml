@@ -25,7 +25,7 @@
             <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="2*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
@@ -38,33 +38,13 @@
             <RowDefinition Height="10" />
         </Grid.RowDefinitions>
 
-        <Label x:Name="lblTravelHeadline"
-               Content="Create Travel Plan" 
-               Grid.Row="1"
-               Grid.Column="1"
-               Grid.ColumnSpan="6"
-               FontSize="44"
-               FontWeight="DemiBold"
-             
-               VerticalAlignment="Center"
-               HorizontalAlignment="Center"
-            >
-            <Label.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF00B4DB" Offset="1" />
-                    <GradientStop Color="#FF3CADB5" />
-                </LinearGradientBrush>
-            </Label.Foreground>
-        </Label>
-
         <Label x:Name="lblBackground"
                Grid.Column="0"
                Grid.ColumnSpan="6"
                Grid.RowSpan="11"
-               
             >
             <Label.Background>
-                <LinearGradientBrush Opacity="0.1">
+                <LinearGradientBrush Opacity="0.3">
                     <LinearGradientBrush.RelativeTransform>
                         <TransformGroup>
                             <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="1.1" ScaleY="1.1"/>
@@ -86,7 +66,57 @@
             </Label.Foreground>
         </Label>
 
-        
+        <Label x:Name="lblBackgroundTop"
+               Grid.Column="0"
+               Grid.ColumnSpan="7"
+               Grid.Row="0"
+               Grid.RowSpan="2"
+               Height="120"
+               VerticalAlignment="Top"
+               BorderBrush="#FF0F122B"
+               BorderThickness="10,0,0,10"
+            >
+            <Label.Background>
+                <LinearGradientBrush>
+                    <LinearGradientBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="1.1" ScaleY="1.1"/>
+                            <SkewTransform CenterX="0.5" CenterY="0.5" AngleX="0" AngleY="0"/>
+                            <RotateTransform CenterX="0.5" CenterY="0.5" Angle="330.101"/>
+                            <TranslateTransform X="0.1" Y="0.1"/>
+                        </TransformGroup>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FF272B48" Offset="0"/>
+                    <GradientStop Color="#FF272B48" Offset="1"/>
+                    <GradientStop Color="#FF12191F"/>
+                </LinearGradientBrush>
+            </Label.Background>
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
+
+        <Label x:Name="lblTravelHeadline"
+               Content="Create Travel Plan" 
+               Grid.Row="1"
+               Grid.Column="1"
+               Grid.ColumnSpan="6"
+               FontSize="44"
+               FontWeight="DemiBold"
+             
+               VerticalAlignment="Top"
+               HorizontalAlignment="Center"
+            >
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C56B0" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
 
         <Label x:Name="lblTravelType"
                Content="Travel Type"
@@ -204,7 +234,7 @@
                  VerticalAlignment="Bottom"
                  TextChanged="txtDestination_TextChanged"
                  />
-        
+
         <ComboBox x:Name="cboDestinationCountry"
                   Grid.Row="3"
                   Grid.Column="2"
@@ -224,7 +254,7 @@
                   VerticalAlignment="Bottom"
                   SelectionChanged="cboTravelType_SelectionChanged"
            />
-        
+
         <ComboBox x:Name="cboTripType"
                   Grid.Row="5"
                   Grid.Column="1"
@@ -264,7 +294,7 @@
                     VerticalAlignment="Bottom"
                     SelectedDateChanged="dtpStart_SelectedDateChanged"
             />
-        
+
         <DatePicker x:Name="dtpEnd"
                     Grid.Row="4"
                     Grid.Column="2"
@@ -314,8 +344,8 @@
                 </LinearGradientBrush>
             </Label.Foreground>
         </Label>
-        
-            <TextBox x:Name="tbxQtyInput"
+
+        <TextBox x:Name="tbxQtyInput"
                      Grid.Row="2"
                      Grid.Column="4"
                      VerticalAlignment="Bottom"
@@ -333,7 +363,7 @@
             </TextBox.BorderBrush>
         </TextBox>
 
-            <TextBox x:Name="txtTravelerNr"
+        <TextBox x:Name="txtTravelerNr"
                  Grid.Row="5"
                  Grid.Column="2"
                  Height="50"
@@ -359,7 +389,7 @@
         </TextBox>
 
         <ListView x:Name="lvPackingList"
-                  ItemsSource="{Binding CurrentPackingList, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding CurrentPackingList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   Grid.Row="3"
                   Grid.Column="4"
                   Grid.RowSpan="4"
@@ -403,31 +433,31 @@
                 VerticalAlignment="Top"
                 Click="btnPackAdd_Click"
                 >
-                <Button.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter
                         Property="CornerRadius" Value="10" />
-                    </Style>
-                </Button.Resources>
-                <Button.Foreground>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF3C86B5" Offset="1" />
-                        <GradientStop Color="#FF3CADB5" />
-                    </LinearGradientBrush>
-                </Button.Foreground>
-            </Button>
-        
+                </Style>
+            </Button.Resources>
+            <Button.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Button.Foreground>
+        </Button>
+
         <Button x:Name="btnPackRemove"
                 Grid.Row="7"
                 Grid.Column="4"
                 Content="X"
-                Height="50"
-                Width="50"
+                Height="40"
+                Width="40"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 Margin="0,0,5,0"
                 Background="Transparent"
-                FontSize="40"
+                FontSize="30"
                 FontWeight="Bold"
                 BorderThickness="0"
                 Click="btnPackRemove_Click"
@@ -448,6 +478,8 @@
                 Width="150"
                 FontSize="20"
                 FontFamily="Arial" 
+                BorderThickness="4"
+                BorderBrush="#FF3CADB5"
                 Click="btnSaveTravelInfo_Click"
                 >
             <Button.Resources>
@@ -459,14 +491,15 @@
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF3C86B5" Offset="1" />
-                    <GradientStop Color="#FF3CADB5" />
+                    <GradientStop Color="#FF4BCAE2" />
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
 
         <Button x:Name="btnBack"
                 Content="🔙"
-                Grid.Row="1"
+                Grid.Row="0"
+                Grid.RowSpan="2"
                 Grid.Column="1" 
                 VerticalAlignment="Top"
                 HorizontalAlignment="Left"

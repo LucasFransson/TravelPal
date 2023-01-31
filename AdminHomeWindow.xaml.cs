@@ -31,7 +31,7 @@ namespace TravelPal
 
         private void btnTravelDetails_Click(object sender, RoutedEventArgs e)
         {
-            // Only Users can see travels?
+            // Only Users can see travels details?
         }
 
         private void btnAboutUs_Click(object sender, RoutedEventArgs e)
@@ -59,20 +59,24 @@ namespace TravelPal
 
         private void btnShowUsers_Click(object sender, RoutedEventArgs e)
         {
+            lblListViewHeadLine.Content = "All Users";
             UserManager.SignedInAdmin.ShowAllUsers(lvDisplay);
         }
 
         private void btnShowAllTravels_Click(object sender, RoutedEventArgs e)
         {
+            lblListViewHeadLine.Content = "All Travel Plans";
             UserManager.SignedInAdmin.ShowAllTravels(lvDisplay);
         }
         private void btnShowAllTrips_Click(object sender, RoutedEventArgs e)
         {
+            lblListViewHeadLine.Content = "All Trip Plans";
             UserManager.SignedInAdmin.ShowAllTrips(lvDisplay);
         }
 
         private void btnShowAllVacations_Click(object sender, RoutedEventArgs e)
         {
+            lblListViewHeadLine.Content = "All Vacation Plans";
             UserManager.SignedInAdmin.ShowAllVacations(lvDisplay);
         }
         private void btnRemoveUser_Click(object sender, RoutedEventArgs e)

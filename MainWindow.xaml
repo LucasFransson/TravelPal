@@ -87,7 +87,7 @@
                 Grid.Column="2"
                 Grid.Row="10"
                 Content="Register User"
-           
+                BorderBrush="Transparent"
                 HorizontalAlignment="Left"
                 Width="90" Height="30"
                 VerticalAlignment="Bottom" Background="{x:Null}"

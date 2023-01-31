@@ -45,8 +45,10 @@ Title="Account Settings" Height="768" Width="1024" WindowStartupLocation="Center
         </Grid.ColumnDefinitions>
 
         <Label x:Name="lblTopBackground"
-                Grid.ColumnSpan="11"
-                Grid.Row="1"
+               Grid.ColumnSpan="11"
+               Grid.Row="1"
+               BorderBrush="#FF272B48"
+               BorderThickness="10"
             >
             <Label.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -61,29 +63,25 @@ Title="Account Settings" Height="768" Width="1024" WindowStartupLocation="Center
                 </LinearGradientBrush>
             </Label.Foreground>
         </Label>
-        <Label x:Name="lblAccountInformation"
-               Content="Account Information" 
+        <Label x:Name="lblAccountHeadline"
+               Content="Account Settings" 
                Grid.Row="1"
                Grid.Column="1"
                Grid.ColumnSpan="6"
-               FontSize="37"
+               FontSize="54"
                FontWeight="DemiBold"
-               VerticalAlignment="Top"
+             
+               VerticalAlignment="Center"
                HorizontalAlignment="Center"
-            />
-        
-        <!--<Label x:Name="lblChangeInfo"
-               Content="Change userName"
-               Grid.Row="2"
-               Grid.Column="4"
-               Grid.ColumnSpan="3"
-               FontSize="22"
-               FontWeight="Medium"
-               VerticalAlignment="Bottom"
-               HorizontalAlignment="Center"
-               Margin="0,0,0,10"
-               
-               />-->
+            >
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF2C1D4C" Offset="1" />
+                    <GradientStop Color="#FF362E54" />
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
+
 
         <Label x:Name="lblUserName"
                Content="User Name"
@@ -341,6 +339,7 @@ Title="Account Settings" Height="768" Width="1024" WindowStartupLocation="Center
                 Grid.Row="1"
                 Grid.Column="1" 
                 Background="{x:Null}"
+                BorderBrush="Transparent"
                 FontSize="50"
                 Click="btnBack_Click"
                 >

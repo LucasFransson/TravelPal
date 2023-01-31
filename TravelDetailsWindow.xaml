@@ -36,6 +36,87 @@
             <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
 
+
+        <Label x:Name="lblBackground"
+               Grid.Column="0"
+               Grid.ColumnSpan="6"
+               Grid.RowSpan="11"
+            >
+            <Label.Background>
+                <LinearGradientBrush Opacity="0.2">
+                    <LinearGradientBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="1.1" ScaleY="1.1"/>
+                            <SkewTransform CenterX="0.5" CenterY="0.5" AngleX="0" AngleY="0"/>
+                            <RotateTransform CenterX="0.5" CenterY="0.5" Angle="1517.905"/>
+                            <TranslateTransform X="0.1" Y="0.1"/>
+                        </TransformGroup>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FF272B48" Offset="0"/>
+                    <GradientStop Color="#FF1A1633" Offset="0.443"/>
+                    <GradientStop Color="#FF12191F" Offset="0.827"/>
+                </LinearGradientBrush>
+            </Label.Background>
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
+
+        <Label x:Name="lblBackgroundTop"
+               Grid.Column="0"
+               Grid.ColumnSpan="7"
+               Grid.Row="0"
+               Grid.RowSpan="2"
+               Height="120"
+               VerticalAlignment="Top"
+               BorderBrush="#FF0F122B"
+               BorderThickness="10,0,0,10"
+            >
+            <Label.Background>
+                <LinearGradientBrush>
+                    <LinearGradientBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="1.1" ScaleY="1.1"/>
+                            <SkewTransform CenterX="0.5" CenterY="0.5" AngleX="0" AngleY="0"/>
+                            <RotateTransform CenterX="0.5" CenterY="0.5" Angle="330.101"/>
+                            <TranslateTransform X="0.1" Y="0.1"/>
+                        </TransformGroup>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FF272B48" Offset="0"/>
+                    <GradientStop Color="#FF272B48" Offset="1"/>
+                    <GradientStop Color="#FF12191F"/>
+                </LinearGradientBrush>
+            </Label.Background>
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
+
+        <Label x:Name="lblTravelHeadline"
+               Content="Travel Plan Details" 
+               Grid.Row="1"
+               Grid.Column="1"
+               Grid.ColumnSpan="6"
+               FontSize="44"
+               FontWeight="DemiBold"   
+               VerticalAlignment="Top"
+               HorizontalAlignment="Center"
+               Margin="0,20,0,0"
+            >
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C56B0" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
+
         <Label x:Name="lblInfo"
                Content="Travel Information"
                Grid.Column="2"
@@ -109,12 +190,16 @@
                 Grid.Column="2"
                 Grid.Row="5"
                 Height="30"
+                Width="80"
                 VerticalAlignment="Top"
                 FontSize="14"
                 FontWeight="DemiBold"
                 Background="Transparent"
-                BorderThickness="0"
+                BorderThickness="3"
+                BorderBrush="#FF00B4DB"
+                Margin="0,5,0,0"
                 Click="btnEditTravel_Click">
+            
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter
@@ -139,8 +224,9 @@
                 HorizontalAlignment="Right"
                 FontSize="14"
                 FontWeight="DemiBold"
+                BorderBrush="Transparent"
                 Background="{x:Null}"
-                BorderThickness="0"
+                
                 Click="btnRemoveTravel_Click">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
@@ -161,11 +247,14 @@
                 Grid.Row="5"
                 Grid.Column="4"
                 Height="30"
+                Width="80"
                 VerticalAlignment="Top"
                 FontSize="14"
                 FontWeight="DemiBold"
                 Background="Transparent"
-                BorderThickness="0"
+                BorderThickness="3"
+                BorderBrush="#FFF55555"
+                Margin="0,5,0,0"
                 Click="btnRemoveItem_Click"
             >
             <Button.Resources>
@@ -191,6 +280,7 @@
                 Background="{x:Null}"
                 BorderThickness="0"
                 FontSize="50"
+                VerticalAlignment="Top"
                 Click="btnBack_Click"
                 >
             <Button.Foreground>

@@ -34,10 +34,130 @@
         </Grid.RowDefinitions>
 
 
+        <Label x:Name="lblBackground"
+               Grid.Column="1"
+               Grid.RowSpan="12"
+               Width="220" 
+               BorderBrush="#FF0F122B"
+               BorderThickness="10,0,10,0"
+            >
+            <Label.Background>
+                <LinearGradientBrush>
+                    <LinearGradientBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="1.1" ScaleY="1.1"/>
+                            <SkewTransform CenterX="0.5" CenterY="0.5" AngleX="0" AngleY="0"/>
+                            <RotateTransform CenterX="0.5" CenterY="0.5" Angle="45"/>
+                            <TranslateTransform X="0.1" Y="0.1"/>
+                        </TransformGroup>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FF272B48" Offset="0"/>
+                    <GradientStop Color="#FF272B48" Offset="1"/>
+                    <GradientStop Color="#FF12191F"/>
+                </LinearGradientBrush>
+            </Label.Background>
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
+
+
+        <Label x:Name="lblBackgroundTop"
+               Grid.Column="1"
+               Grid.ColumnSpan="4"
+               Grid.Row="0"
+               Grid.RowSpan="2"
+               Height="120"
+               VerticalAlignment="Top"
+               BorderBrush="#FF0F122B"
+               BorderThickness="10,0,0,10"
+            >
+            <Label.Background>
+                <LinearGradientBrush>
+                    <LinearGradientBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="1.1" ScaleY="1.1"/>
+                            <SkewTransform CenterX="0.5" CenterY="0.5" AngleX="0" AngleY="0"/>
+                            <RotateTransform CenterX="0.5" CenterY="0.5" Angle="330.101"/>
+                            <TranslateTransform X="0.1" Y="0.1"/>
+                        </TransformGroup>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FF272B48" Offset="0"/>
+                    <GradientStop Color="#FF272B48" Offset="1"/>
+                    <GradientStop Color="#FF12191F"/>
+                </LinearGradientBrush>
+            </Label.Background>
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
+
+        <Label x:Name="lblMiddleBackground"
+               Grid.Column="1"
+               Grid.RowSpan="11"
+               Width="100"
+               BorderBrush="Transparent"
+            >
+            <Label.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C86B5" Offset="0.2" />
+                    <GradientStop Color="#FF4DBFAD"  />
+                    <GradientStop Color="#Ff272B48" Offset="0.5"/>
+                    <GradientStop Color="#FF272B48" Offset="1." />
+                </LinearGradientBrush>
+            </Label.Background>
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3C56B0" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
+        
+        <Label x:Name="lblMainHeadLine"
+               Content="Travel Pal : Admin"
+               Grid.Column="2"
+               Grid.Row="1"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Center"
+               FontSize="60"
+               FontWeight="DemiBold"
+               >
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF00B4DB" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
+        
+        <Label x:Name="lblListViewHeadLine"  
+               Grid.Column="2"
+               Grid.Row="1"
+               VerticalAlignment="Bottom"
+               HorizontalAlignment="Center"
+               FontSize="24"
+               FontWeight="DemiBold"
+               Margin="50,0,0,0"
+               >
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF00B4DB" Offset="1" />
+                    <GradientStop Color="#FF3CADB5" />
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
 
 
         <Label x:Name="lblUserHeadline"   
                 BorderThickness="5,5,5,5"
+                BorderBrush="#FF272B48"
                 Grid.Column="1"
                 Grid.Row="1"
                 FontSize="22"
@@ -59,7 +179,7 @@
                   Grid.Column="2"
                   Grid.RowSpan="4"
                   Foreground="Black"  
-                  
+                  Margin="50,0,0,0"
                   />
 
         <Button x:Name="btnShowUsers"
@@ -68,6 +188,8 @@
                 Grid.Column="1"
                 Height="35"
                 Width="160"
+                BorderThickness="3"
+                BorderBrush="#FF00B4DB"
                 Click="btnShowUsers_Click"
                 >
             <Button.Resources>
@@ -90,6 +212,8 @@
                 Grid.Column="1"
                 Height="35"
                 Width="160"
+                BorderThickness="3"
+                BorderBrush="#FF00B4DB"
                 Click="btnShowAllTravels_Click"
                 >
             <Button.Resources>
@@ -112,6 +236,8 @@
                 Grid.Column="1"
                 Height="35"
                 Width="160"
+                BorderThickness="3"
+                BorderBrush="#FF00B4DB"
                 Click="btnShowAllTrips_Click"
                 >
             <Button.Resources>
@@ -134,6 +260,8 @@
                 Grid.Column="1"
                 Height="35"
                 Width="160"
+                BorderThickness="3"
+                BorderBrush="#FF00B4DB"
                 Click="btnShowAllVacations_Click"
                 >
             <Button.Resources>
@@ -156,6 +284,8 @@
                 Grid.Column="1"
                 Height="35"
                 Width="160"
+                BorderThickness="3"
+                BorderBrush="#FF00B4DB"
                 Click="btnAboutUs_Click"
                 >
             <Button.Resources>
@@ -196,13 +326,19 @@
         </Button>-->
 
         <Button x:Name="btnRemoveTravel"
-                Content="Remove Travel"
+            Content="Remove Travel"
                 Grid.Column="2"
                 Grid.Row="6"
                 Height="35"
-                Width="90"
-                Foreground="White"
+                Width="120"
                 HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                FontSize="14"
+                FontWeight="DemiBold"
+                Background="{x:Null}"
+                BorderThickness="3"
+                BorderBrush="#FFF55555"
+                Margin="60,5,0,0"
                 Click="btnRemoveTravel_Click"
                 >
 
@@ -212,12 +348,12 @@
                             Property="CornerRadius" Value="10" />
                 </Style>
             </Button.Resources>
-            <Button.Background>
+            <Button.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF5C0C1B" Offset="1" />
-                    <GradientStop Color="#FFD54646" />
+                    <GradientStop Color="#FF9E122C" Offset="1" />
+                    <GradientStop Color="#FFF55555" />
                 </LinearGradientBrush>
-            </Button.Background>
+            </Button.Foreground>
         </Button>
 
         <Button x:Name="btnRemoveUser"
@@ -225,9 +361,15 @@
                 Grid.Column="2"
                 Grid.Row="6"
                 Height="35"
-                Width="90"
-                Foreground="White"
+                Width="120"
                 HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                FontSize="14"
+                FontWeight="DemiBold"
+                Background="{x:Null}"
+                BorderThickness="3"
+                BorderBrush="#FFF55555"
+                Margin="0,5,100,0"
                 Click="btnRemoveUser_Click"
                 >
 
@@ -236,15 +378,16 @@
                     <Setter
                             Property="CornerRadius" Value="10" />
                 </Style>
+
             </Button.Resources>
-            <Button.Background>
+            <Button.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF5C0C1B" Offset="1" />
-                    <GradientStop Color="#FFD54646" />
+                    <GradientStop Color="#FF9E122C" Offset="1" />
+                    <GradientStop Color="#FFF55555" />
                 </LinearGradientBrush>
-            </Button.Background>
+            </Button.Foreground>
         </Button>
-        
+
         <!--<Button x:Name="btnAccountSettings"
                 Content="Account Settings"
                 Grid.Row="6"
@@ -273,8 +416,11 @@
                 FontSize="20"
                 Foreground="#FFDEDEDE"
                 Height="40"
+                Width="140"
                 Grid.Row="7"
                 Grid.Column="1"
+                BorderThickness="3"
+                BorderBrush="#FF247CB5"
                 Click="btnLogOut_Click"
                 >
             <Button.Resources>
