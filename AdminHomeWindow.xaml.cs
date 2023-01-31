@@ -42,6 +42,7 @@ namespace TravelPal
         private void btnRemoveTravel_Click(object sender, RoutedEventArgs e)
         {
             UserManager.SignedInAdmin.RemoveSelectedTravel(lvDisplay);
+            lblListViewHeadLine.Content = "All Travel Plans";
             UserManager.SignedInAdmin.ShowAllTravels(lvDisplay);    // Updates the listview view
         }
 
