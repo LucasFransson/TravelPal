@@ -127,7 +127,7 @@ namespace TravelPal.Managers
             
         }
 
-
+        
         // Takes a string and parses it into an Countries Enum
         // Safe to use since the method only is called by parsing strings from Comboboxes containing only items from the Countries Enum, but can and probably should be refacotered to check if the parse is possible first. 
         public static Countries ParseStringToCountryEnum(string stringToParse)

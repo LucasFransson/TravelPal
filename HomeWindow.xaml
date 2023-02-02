@@ -181,14 +181,6 @@
                   Grid.RowSpan="4"
                   Foreground="Black"  
                   Margin="50,0,0,0">
-            <!--<ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Travel Plans" 
-                                    
-                                    Width="620"
-                                    />
-                </GridView>
-            </ListView.View>-->
         </ListView>
 
             <Button x:Name="btnOpenAddTravel"

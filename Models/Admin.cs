@@ -97,6 +97,7 @@ namespace TravelPal.Models
 
         private void SetAdminId()
         {
+
             UserID = UserManager.GenerateGUID();
         }
         // Removes a selected travel from a listview, if the selecteditem is null or not a Travel Object display an error message

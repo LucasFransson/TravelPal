@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -38,11 +40,7 @@ namespace TravelPal
                                                                       pbxPassword.Password)) // If an IUser object is found and the username and password matches with that IUser object return true else return false
             {
                 UserManager.LogInIUser(tbxUserName, this);  // Logs in Users to "HomeWindow" and Admins to "AdminHomeWindow"
-                //UserManager.SignedInUser = (User)UserManager.FindIUserByUsername(tbxUserName.Text); // Safe to use since this code only is reachable if the Username input matches with an existing IUser object
-                //TravelManager.LoadTestTravels();    // Creates and sets an vacation and a trip object to the user for testing purposes 
-                //HomeWindow homeWin = new();
-                //homeWin.Show();
-                //this.Close();
+
             }
             else { MessageBox.Show("Username or Password was not correct!", "Wrong Input"); }   // Display an Error Message 
         }
@@ -52,7 +50,9 @@ namespace TravelPal
             RegisterWindow regWin = new();
             regWin.Show();
             this.Close();
+
         }
+        
 
 
         // Code for mimicking a "Watermark" on the textboxes

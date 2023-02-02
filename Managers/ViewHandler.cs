@@ -67,6 +67,7 @@ namespace TravelPal.Managers
 
         public static void OpenHomeWindowCloseThis(Window currentWindow)
         {
+            currentWindow.Visibility= Visibility.Collapsed;
             HomeWindow homeWindow = new();
             homeWindow.Show();
             currentWindow.Close();

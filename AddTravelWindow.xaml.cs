@@ -27,6 +27,7 @@ namespace TravelPal
     public partial class AddTravelWindow : Window
     {
         UserViewModel _userViewModel;
+        Travel _travelFromEdit;
 
         private TravelTypes _travelType = TravelTypes.None;    // Sets the TravelType to 'None' to prevent Crashes if no TravelType is chosen
         
@@ -55,6 +56,8 @@ namespace TravelPal
             InitializeComponent();
 
             _userViewModel = userViewModel;
+            _travelFromEdit = travel;
+
             DataContext = _userViewModel;    // Sets the DataContext to the ViewModel
             _userViewModel.CurrentPackingList = travel.PackingList; // Sets the CurrentPackingList to the Travel objects PackingList
 
@@ -106,6 +109,10 @@ namespace TravelPal
                 return; // If the Dates were not correct call "return" to stop the rest of code to execute. 
             }
 
+            if (_travelFromEdit != null)
+            {
+                UserManager.SignedInUser.travels.Remove(_travelFromEdit);
+            }
 
             // If all the User Inputs are correct 
             // Creating and Saving a Travel

@@ -30,16 +30,6 @@ namespace TravelPal.Models
             EndDate = endDate;
             TravelDuration = GetTravelDuration(startDate,endDate);
         }
-        //public int? TotalDays(DateTime? startDate, DateTime? endDate)
-        //{
-        //    if (!startDate.HasValue || !endDate.HasValue)
-        //    {
-        //        return null;
-        //    }
-
-        //    TimeSpan diff = endDate.Value - startDate.Value;
-        //    return (int)diff.TotalDays;
-        //}
 
         public int GetTravelDuration(DateTime? startDate,DateTime? endDate)
         {

@@ -245,6 +245,7 @@ namespace TravelPal.Managers
             listView.Items.Add(lvItem);
         }
 
+
         public static ListViewItem CreateListViewItem(Object obj, string objContent)
         {
             ListViewItem lvItem = new();
