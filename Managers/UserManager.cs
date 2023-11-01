@@ -64,8 +64,6 @@ namespace TravelPal.Managers
             else if(user is Admin)
             {
                 UserManager.SignedInAdmin= (Admin)user;
-                UserManager.SignedInUser = (User)UserManager.FindIUserByUsername("Gandalf");
-                TravelManager.LoadTestTravels();
                 AdminHomeWindow adminHomeWin = new();
                 adminHomeWin.Show();
                 LogInWindow.Close();

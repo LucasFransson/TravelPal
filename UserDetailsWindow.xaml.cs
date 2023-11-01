@@ -43,7 +43,7 @@ namespace TravelPal
         private void btnLastNameSave_Click(object sender, RoutedEventArgs e)
         {
             UserManager.SignedInUser.LastName = tbxLastName.Text;
-            MessageBox.Show($"You have sucesfully changed your Surname to {UserManager.SignedInUser.LastName}!", "Succes");
+            MessageBox.Show($"You have sucesfully changed your Surname to {UserManager.SignedInUser.LastName}!", "Succes");    
             ViewHandler.ChangeNTViewElementsBackground<FrameworkElement>(Colors.White, tbxUsername, tbxFirstName, tbxLastName, tbxLocation);     // Sets all textboxes background color to white
             ViewHandler.ChangeNViewElementsForeground<FrameworkElement>(ViewHandler.defaultWhiteColor, btnChangeUserName, btnChangeFirstName, btnChangeLocation, btnChangeLastName, lblUserName, lblFirstName, lblLastName, lblCountry);    // Sets all buttons and labels to the windows default white
             btnLastNameSave.Visibility= Visibility.Collapsed;    // Hides the 'Save' button until the textbox is changed/focused again

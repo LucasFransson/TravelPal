@@ -52,7 +52,7 @@ namespace TravelPal
         {
             AddTravelWindow addTravelWin = new(_userViewModel);
             addTravelWin.Show();
-            this.Close();
+            //this.Close();
         }
 
         private void btnTravelDetails_Click(object sender, RoutedEventArgs e)
