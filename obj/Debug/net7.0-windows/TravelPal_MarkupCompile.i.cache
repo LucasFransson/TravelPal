@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 C:\Users\lucas\source\repos\TravelPal\TravelPal\App.xaml
-5894392870
+7-928026811
 
-27872296032
-198-1175457984
-AddTravelWindow.xaml;HomeWindow.xaml;MainWindow.xaml;RegisterWindow.xaml;TravelDetailsWindow.xaml;
+28-1317406324
+198-2048575587
+AddTravelWindow.xaml;AdminHomeWindow.xaml;HomeWindow.xaml;MainWindow.xaml;RegisterWindow.xaml;TravelDetailsWindow.xaml;UserDetailsWindow.xaml;
 
-True
+False
 

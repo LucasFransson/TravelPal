@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -30,21 +32,17 @@ namespace TravelPal
             InitializeComponent();
             UserManager.PopulateTestUsers();
         }
-     
 
         private void btnLogIn_Click(object sender, RoutedEventArgs e)
         {
             if(UserManager.CheckLogin(UserManager.FindIUserByUsername(tbxUserName.Text), // Search the UserManager class "users" List and if a match is found, return it to a new IUser object  
                                                                       tbxUserName.Text,
-                                                                      /*tbxPasswordFacade.Text*/pbxPassword.Password)) // If an IUser object is found and the username and password matches with that IUser object return true else return false
+                                                                      pbxPassword.Password)) // If an IUser object is found and the username and password matches with that IUser object return true else return false
             {
-                UserManager.SignedInUser = (User)UserManager.FindIUserByUsername(tbxUserName.Text); // Safe to use since this code only is reachable if the Username input matches with an existing IUser object
+                UserManager.LogInIUser(tbxUserName, this);  // Logs in Users to "HomeWindow" and Admins to "AdminHomeWindow"
 
-                HomeWindow homeWin = new();
-                homeWin.Show();
-                this.Close();
             }
-            else { MessageBox.Show("Username or Password was not correct!", "Wrong Input"); }   // Shows an Error Message 
+            else { MessageBox.Show("Username or Password was not correct!", "Wrong Input"); }   // Display an Error Message 
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
@@ -52,10 +50,12 @@ namespace TravelPal
             RegisterWindow regWin = new();
             regWin.Show();
             this.Close();
+
         }
+        
 
 
-
+        // Code for mimicking a "Watermark" on the textboxes
         private void tbxUserName_GotFocus(object sender, RoutedEventArgs e)
         {
             if (!_hasUserNameBeenClicked)
@@ -77,8 +77,6 @@ namespace TravelPal
         {
             tbxPasswordFacade.Visibility = Visibility.Collapsed;  // Sets the facadetextbox overlapping the pbx to collapsed visibility
         }
-
-
         private void tbxPasswordFacade_GotFocus(object sender, RoutedEventArgs e)
         {      
             pbxPassword.Focus(); // if the user clicks on the facadetextbox this method sets the focus to the pbx behind the tbx
@@ -86,11 +84,6 @@ namespace TravelPal
             _hasPasswordBeenClicked = true;
 
         }
-        private void tbxPasswordFacade_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
         private void pbxPassword_LostFocus(object sender, RoutedEventArgs e)
         {
             if (pbxPassword.Password.Length==0 )
